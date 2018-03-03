@@ -1,0 +1,14 @@
+.btn-group-xs > .btn, .btn-xs {
+	padding: .25rem;
+	font-size: .5rem;
+}
+
+div.card-body > traitpanel:last-child > div,
+div.card-body > classfeaturepanel:last-child > div,
+div.card-body > backgroundfeaturepanel:last-child > div {
+	margin-bottom: 0 !important;
+}
+
+#abilityScores div {
+	overflow-x: auto;
+}

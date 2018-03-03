@@ -1,0 +1,49 @@
+<div class="card mb-3" data-bind="css: {'border-primary': !complete()}">
+	<div class="card-header" data-bind="click: toggleExpanded">
+		<div class="d-flex">
+			<div class="mr-auto p-2" data-bind="text: $parent.i18n().get(name() + '.name')"></div>
+			<button class="p-2 btn btn-link collapsed"
+				data-bind="visible: !expanded()">
+				<i class="fa fa-plus"></i>
+			</button>
+			<button class="p-2 btn btn-link collapsed"
+				data-bind="visible: expanded">
+				<i class="fa fa-minus"></i>
+			</button>
+		</div>
+	</div>
+	<div class="card-body collapse" data-bind="css: { show: expanded}">
+		<form>
+			<div class="form-group row">
+				<label for="hair" class="col-sm-3 col-form-label" data-bind="text: $parent.i18n().get('hair.name')"></label>
+				<div class="col-sm-9">
+					<input type="text" id="hair" class="form-control"
+						data-bind="value: model().hair" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="skin" class="col-sm-3 col-form-label" data-bind="text: $parent.i18n().get('skin.name')"></label>
+				<div class="col-sm-9">
+					<input type="text" id="skin" class="form-control"
+						data-bind="value: model().skin" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="eyes" class="col-sm-3 col-form-label" data-bind="text: $parent.i18n().get('eyes.name')"></label>
+				<div class="col-sm-9">
+					<input type="text" id="eyes" class="form-control"
+						data-bind="value: model().eyes" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="gender" class="col-sm-3 col-form-label" data-bind="text: $parent.i18n().get('gender.name')"></label>
+				<div class="col-sm-9">
+					<ul class="list-group" data-bind="foreach: genders">
+						<li class="list-group-item list-group-item-action"
+							data-bind="text: $parent.i18n().get('gender.' + $data + '.name'), click: $parent.setGender, css: { active: $parent.genderSelected($data) }"></li>
+					</ul>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

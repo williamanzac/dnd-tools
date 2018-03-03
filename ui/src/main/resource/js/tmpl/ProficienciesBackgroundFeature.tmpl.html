@@ -1,0 +1,48 @@
+<div class="card mb-3" data-bind="css: {'border-primary': !complete()}">
+	<div class="card-header" data-bind="click: toggleExpanded">
+		<div class="d-flex">
+			<div class="mr-auto p-2" data-bind="text: i18n().getForBackground(feature().name + '.name')"></div>
+			<button class="p-2 btn btn-link collapsed" data-bind="visible: !expanded()">
+				<i class="fa fa-plus"></i>
+	        </button>
+			<button class="p-2 btn btn-link collapsed" data-bind="visible: expanded">
+				<i class="fa fa-minus"></i>
+	        </button>
+		</div>
+	</div>
+	<div class="card-body collapse" data-bind="css: { show: expanded}">
+		<p class="card-text" data-bind="text: i18n().getForBackground(feature().name + '.description')"></p>
+		<dl class="row">
+			<!-- ko if: model().background().toolProficiencies.proficientTools.length > 0 -->
+			<dt class="col-sm-3" data-bind="text: i18n().getForBackground('tools.name')"></dt>
+			<dd class="col-sm-9" data-bind="text: i18n().getForBackground('tools.description')"></dd>
+			<!-- /ko -->
+			<!-- ko if: model().background().skillProficiencies.proficientSkills.length > 0 -->
+			<dt class="col-sm-3" data-bind="text: i18n().getForBackground('skills.name')"></dt>
+			<dd class="col-sm-9">
+				<span data-bind="text: i18n().getForBackground('skills.description')"></span>
+				<!-- ko if: model().background().skillProficiencies.numberSkillProficiencies > 0 -->
+					<ul class="list-group" data-bind="foreach: model().background().skillProficiencies.proficientSkills">
+						<li class="list-group-item" data-bind="css: {'list-group-item-action': $parent.skillSelectable($data), 'list-group-item-secondary': $parent.skillKnown($data), 'list-group-item-primary': $parent.skillSelected($data)}, click: $parent.toggleSkill">
+							<span data-bind="text: $parent.i18n().get('skill.' + $data.name + '.name')"></span>
+						</li>
+					</ul>
+				<!-- /ko -->
+			</dd>
+			<!-- /ko -->
+			<!-- ko if: model().background().knownLanguages.languages.length > 0 || model().background().knownLanguages.additionalLanguages > 0 -->
+			<dt class="col-sm-3" data-bind="text: i18n().getForBackground('languages.name')"></dt>
+			<dd class="col-sm-9">
+				<span data-bind="text: i18n().getForBackground('languages.description')"></span>
+				<!-- ko if: model().background().knownLanguages.additionalLanguages > 0 -->
+				<ul class="list-group" data-bind="foreach: languages">
+					<li class="list-group-item" data-bind="css: {'list-group-item-action': $parent.languageSelectable($data), 'list-group-item-secondary': $parent.languageKnown($data), 'list-group-item-primary': $parent.languageSelected($data)}, click: $parent.toggleLanguage">
+						<span data-bind="text: $parent.i18n().get('language.' + $data + '.name')"></span>
+					</li>
+				</ul>
+				<!-- /ko -->
+			</dd>
+			<!-- /ko -->
+		</dl>
+	</div>
+</div>

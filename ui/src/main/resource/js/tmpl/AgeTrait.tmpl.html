@@ -1,0 +1,22 @@
+<div class="card mb-3" data-bind="css: {'border-primary': !complete()}">
+	<div class="card-header" data-bind="click: toggleExpanded">
+		<div class="d-flex">
+			<div class="mr-auto p-2" data-bind="text: i18n().getForRace(trait().name + '.name')"></div>
+			<button class="p-2 btn btn-link collapsed" data-bind="visible: !expanded()">
+				<i class="fa fa-plus"></i>
+	        </button>
+			<button class="p-2 btn btn-link collapsed" data-bind="visible: expanded">
+				<i class="fa fa-minus"></i>
+	        </button>
+		</div>
+	</div>
+	<div class="card-body collapse" data-bind="css: { show: expanded}">
+		<p class="card-text" data-bind="text: i18n().getForRace(trait().name + '.description')"></p>
+		<div class="input-group mb-3">
+			<input type="number" class="form-control" placeholder="Age" data-bind="value: model().age, attr: {min: trait().thing.maturity, max: trait().thing.max}">
+			<div class="input-group-append">
+				<button class="btn btn-outline-secondary" type="button" data-bind="click: generateAge">Generate</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,73 @@
+
+<ul class="nav nav-tabs" data-bind="foreach: modes">
+	<li class="nav-item"><a class="nav-link" href="#"
+		data-bind="text: name, css: {active: $data == $parent.currentMode()}, click: $parent.selectMode"></a>
+	</li>
+</ul>
+<div class="tab-content" id="abilityScores">
+	<div class="tab-pane active">
+		<table class="table text-center mb-0">
+			<thead>
+				<tr data-bind="foreach: abilities">
+					<th scope="col" data-bind="text: $parent.i18n().get('ability.' + $data + '.name')"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-bind="foreach: abilities">
+					<td>
+						<div class="text-muted small">base</div>
+						<!-- ko if: $parent.currentMode().name() == 'Point Buy' || $parent.currentMode().name() == 'Manual' -->
+						<button type="button" class="btn btn-xs btn-outline-secondary"
+							data-bind="click: $parent.decreaseScore, enable: $parent.canDecrease($data)">
+							<i class="fa fa-minus"></i>
+						</button> <span data-bind="text: $parent.model().abilityScores()[$data]"></span>
+						<button type="button" class="btn btn-xs btn-outline-secondary"
+							data-bind="click: $parent.increaseScore, enable: $parent.canIncrease($data)">
+							<i class="fa fa-plus"></i>
+						</button>
+						<!-- /ko -->
+						<!-- ko if: $parent.currentMode().name() != 'Manual' && $parent.currentMode().name() != 'Point Buy' -->
+						<button type="button" class="btn btn-xs btn-outline-secondary"
+							data-bind="click: $parent.moveLeft.bind($data, $index()), enable: $index() > 0">
+							<i class="fa fa-chevron-left"></i>
+						</button> <span data-bind="text: $parent.model().abilityScores()[$data]"></span>
+						<button type="button" class="btn btn-xs btn-outline-secondary"
+							data-bind="click: $parent.moveRight.bind($data, $index()), enable: $index() < ($parent.abilities().length - 1)">
+							<i class="fa fa-chevron-right"></i>
+						</button>
+						<!-- /ko -->
+					</td>
+				</tr>
+				<tr data-bind="foreach: abilities">
+					<td>
+						<div class="text-muted small">race</div> <span
+						data-bind="text: $parent.model().racialModifiers.indexOf($data) >= 0 ? 1 : ($parent.model().race().abilityMods[$data] === undefined ? '0' : $parent.model().race().abilityMods[$data])"></span>
+					</td>
+				</tr>
+				<tr data-bind="foreach: abilities">
+					<td>
+						<div class="text-muted small">total</div> <span
+						data-bind="text: $parent.model().getAbilityScore($data)"></span> <span
+						class="text-muted small"> (<span
+							data-bind="text: $parent.model().getAbilityScoreModifier($data)"></span>)
+					</span>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr class="text-left">
+					<td colspan="6">
+						<!-- ko if: currentMode().name() == 'Dice Roll' -->
+						<button class="btn btn-outline-primary"
+							data-bind="click: $data.currentMode().generate">Re-Roll</button>
+						<!-- /ko -->
+						<!-- ko if: currentMode().name() == 'Point Buy' -->
+						Points Remaining: <span
+						data-bind="text: currentMode().availablePoints"></span>
+						<!-- /ko -->
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>

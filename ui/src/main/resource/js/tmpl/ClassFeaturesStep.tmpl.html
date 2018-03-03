@@ -1,0 +1,11 @@
+
+<classfeaturepanel
+	params="feature: hitPointsFeature, model: model(), step: $data"></classfeaturepanel>
+<classfeaturepanel
+	params="feature: proficenciesFeature, model: model(), step: $data"></classfeaturepanel>
+<!-- ko foreach: model().characterClass().features -->
+<!-- ko if: $data.level <= $parent.model().characterLevel() -->
+<classfeaturepanel
+	params="feature: $data, model: $parent.model(), step: $parent"></classfeaturepanel>
+<!-- /ko -->
+<!-- /ko -->

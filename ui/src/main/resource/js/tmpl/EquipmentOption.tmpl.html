@@ -1,0 +1,17 @@
+<div class="card" data-bind="css: {'mt-3': $index() > 0}">
+	<div class="card-body">
+		<!-- ko if: numberOfChoices == 0 -->
+		<span data-bind="text: items.map(function(x) {return x.name;}).join(', ')"></span>
+		<!-- /ko -->
+		<!-- ko if: numberOfChoices > 0 && items.length > 0 -->
+		<ul class="list-group" data-bind="foreach: items">
+			<li class="list-group-item list-group-item-action"
+				data-bind="text: name"></li>
+		</ul>
+		<!-- /ko -->
+		<!-- ko if: numberOfChoices > 0 && options.length > 0 -->
+		<ul class="list-group" data-bind="template: {name: 'EquipmentOptionOption', foreach: options}">
+		</ul>
+		<!-- /ko -->
+	</div>
+</div>

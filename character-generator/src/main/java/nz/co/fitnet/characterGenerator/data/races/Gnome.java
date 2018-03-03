@@ -1,0 +1,35 @@
+package nz.co.fitnet.characterGenerator.data.races;
+
+import java.util.HashMap;
+
+import nz.co.fitnet.characterGenerator.api.Ability;
+import nz.co.fitnet.characterGenerator.api.Language;
+import nz.co.fitnet.characterGenerator.api.MovementType;
+import nz.co.fitnet.characterGenerator.api.Race;
+import nz.co.fitnet.characterGenerator.api.Size;
+import nz.co.fitnet.characterGenerator.api.traits.AbilityModifiersTrait;
+import nz.co.fitnet.characterGenerator.api.traits.AgeTrait;
+import nz.co.fitnet.characterGenerator.api.traits.HeightTrait;
+import nz.co.fitnet.characterGenerator.api.traits.KnownLanguagesTrait;
+import nz.co.fitnet.characterGenerator.api.traits.SizeTrait;
+import nz.co.fitnet.characterGenerator.api.traits.SpeedTrait;
+import nz.co.fitnet.characterGenerator.api.traits.WeightTrait;
+import nz.co.fitnet.characterGenerator.data.traits.DarkvisionTrait;
+
+public abstract class Gnome extends Race {
+	public Gnome() {
+		final HashMap<Ability, Integer> abilityMods = new HashMap<>();
+		abilityMods.put(Ability.INT, 2);
+		traits.add(new AbilityModifiersTrait(abilityMods));
+		traits.add(new AgeTrait(40, 500));
+		// TODO alignment trait
+		traits.add(new SizeTrait(Size.Small));
+		traits.add(new HeightTrait(2 * 12 + 11, "2d4")); // 2'11"
+		traits.add(new WeightTrait(35, "1")); // lbs
+		traits.add(new SpeedTrait(MovementType.walk, 25));
+		traits.add(new KnownLanguagesTrait(Language.Common, Language.Gnomish));
+
+		traits.add(new DarkvisionTrait());
+		// Gnome Cunning. You have advantage on all Intelligence, Wisdom, and Charisma saving throws against magic.
+	}
+}

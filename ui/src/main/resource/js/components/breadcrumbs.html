@@ -1,0 +1,5 @@
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb" data-bind="foreach: crumbs">
+    <li class="breadcrumb-item" aria-current="page" data-bind="text: $data, css: {active: $index() == ($component.crumbs().length - 1)}"></li>
+  </ol>
+</nav>

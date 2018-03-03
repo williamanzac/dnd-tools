@@ -1,0 +1,31 @@
+<div class="card mb-3" data-bind="css: {'border-primary': !complete()}">
+	<div class="card-header" data-bind="click: toggleExpanded">
+		<div class="d-flex">
+			<div class="mr-auto p-2" data-bind="text: i18n().getForRace(trait().name + '.name')"></div>
+			<button class="p-2 btn btn-link collapsed" data-bind="visible: !expanded()">
+				<i class="fa fa-plus"></i>
+	        </button>
+			<button class="p-2 btn btn-link collapsed" data-bind="visible: expanded">
+				<i class="fa fa-minus"></i>
+	        </button>
+		</div>
+	</div>
+	<div class="card-body collapse" data-bind="css: { show: expanded}">
+		<p class="card-text" data-bind="text: i18n().getForRace(trait().name + '.description')"></p>
+		<!-- ko if: trait().type == 'AbilityScoreIncrease' && trait().thing.additionalModifiers > 0 -->
+		<ul class="list-group" data-bind="foreach: abilities">
+			<li class="list-group-item d-flex justify-content-between align-items-center" data-bind="css: {'list-group-item-action': $parent.abilitySelectable($data), 'list-group-item-secondary': $parent.abilityKnown($data), 'list-group-item-primary': $parent.abilitySelected($data)}, click: $parent.toggleAbility">
+				<span data-bind="text: $parent.i18n().get('ability.' + $data + '.name')"></span>
+				<span>
+					<span data-bind="if: $parent.abilityKnown($data)">
+						<span class="badge badge-pill badge-primary" data-bind="text: '+ ' + $parent.trait().thing.abilityModifiers[$data]"></span>
+					</span>
+					<span data-bind="if: $parent.abilitySelected($data)">
+						<span class="badge badge-pill badge-primary">+ 1</span>
+					</span>
+				</span>
+			</li>
+		</ul>
+		<!-- /ko -->
+	</div>
+</div>

@@ -1,0 +1,56 @@
+<div class="card mb-3" data-bind="css: {'border-primary': !complete()}">
+	<div class="card-header" data-bind="click: toggleExpanded">
+		<div class="d-flex">
+			<div class="mr-auto p-2" data-bind="text: i18n().getForBackground(feature().name + '.name')"></div>
+			<button class="p-2 btn btn-link collapsed" data-bind="visible: !expanded()">
+				<i class="fa fa-plus"></i>
+	        </button>
+			<button class="p-2 btn btn-link collapsed" data-bind="visible: expanded">
+				<i class="fa fa-minus"></i>
+	        </button>
+		</div>
+	</div>
+	<div class="card-body collapse" data-bind="css: { show: expanded}">
+		<p class="card-text" data-bind="text: i18n().getForBackground(feature().name + '.description')"></p>
+		<div class="card mb-3">
+			<div class="card-header">
+				<div class="d-flex">
+					<div class="mr-auto p-2" data-bind="text: i18n().getForBackground('personalityTraits.name')"></div>
+				</div>
+			</div>
+			<ul class="list-group list-group-flush" data-bind="foreach: model().background().personalityTraits">
+				<li class="list-group-item list-group-item-action" data-bind="text: $data, click: $parent.setPersonalityTrait, css: {'active': $parent.model().personalityTrait() === $data}"></li>
+			</ul>
+		</div>
+		<div class="card mb-3">
+			<div class="card-header">
+				<div class="d-flex">
+					<div class="mr-auto p-2" data-bind="text: i18n().getForBackground('ideals.name')"></div>
+				</div>
+			</div>
+			<ul class="list-group list-group-flush" data-bind="foreach: model().background().ideals">
+				<li class="list-group-item list-group-item-action" data-bind="text: $data, click: $parent.setIdeal, css: {'active': $parent.model().ideal() === $data}"></li>
+			</ul>
+		</div>
+		<div class="card mb-3">
+			<div class="card-header">
+				<div class="d-flex">
+					<div class="mr-auto p-2" data-bind="text: i18n().getForBackground('bonds.name')"></div>
+				</div>
+			</div>
+			<ul class="list-group list-group-flush" data-bind="foreach: model().background().bonds">
+				<li class="list-group-item list-group-item-action" data-bind="text: $data, click: $parent.setBond, css: {'active': $parent.model().bond() === $data}"></li>
+			</ul>
+		</div>
+		<div class="card mb-3">
+			<div class="card-header">
+				<div class="d-flex">
+					<div class="mr-auto p-2" data-bind="text: i18n().getForBackground('flaws.name')"></div>
+				</div>
+			</div>
+			<ul class="list-group list-group-flush" data-bind="foreach: model().background().flaws">
+				<li class="list-group-item list-group-item-action" data-bind="text: $data, click: $parent.setFlaw, css: {'active': $parent.model().flaw() === $data}"></li>
+			</ul>
+		</div>
+	</div>
+</div>

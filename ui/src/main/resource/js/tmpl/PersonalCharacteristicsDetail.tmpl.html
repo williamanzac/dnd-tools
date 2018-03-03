@@ -1,0 +1,47 @@
+<div class="card mb-3" data-bind="css: {'border-primary': !complete()}">
+	<div class="card-header" data-bind="click: toggleExpanded">
+		<div class="d-flex">
+			<div class="mr-auto p-2" data-bind="text: $parent.i18n().get(name() + '.name')"></div>
+			<button class="p-2 btn btn-link collapsed"
+				data-bind="visible: !expanded()">
+				<i class="fa fa-plus"></i>
+			</button>
+			<button class="p-2 btn btn-link collapsed"
+				data-bind="visible: expanded">
+				<i class="fa fa-minus"></i>
+			</button>
+		</div>
+	</div>
+	<div class="card-body collapse" data-bind="css: { show: expanded}">
+		<form>
+			<div class="form-group row">
+				<label for="personalityTrait" class="col-sm-3 col-form-label" data-bind="text: $parent.i18n().get('personalitytraits.name')"></label>
+				<div class="col-sm-9">
+					<textarea id="personalityTrait" class="form-control" rows="2"
+						data-bind="value: model().personalityTrait"></textarea>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="ideal" class="col-sm-3 col-form-label" data-bind="text: $parent.i18n().get('ideal.name')"></label>
+				<div class="col-sm-9">
+					<textarea id="ideal" class="form-control" rows="2"
+						data-bind="value: model().ideal"></textarea>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="bond" class="col-sm-3 col-form-label" data-bind="text: $parent.i18n().get('bond.name')"></label>
+				<div class="col-sm-9">
+					<textarea id="bond" class="form-control" rows="2"
+						data-bind="value: model().bond"></textarea>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="flaw" class="col-sm-3 col-form-label" data-bind="text: $parent.i18n().get('flaw.name')"></label>
+				<div class="col-sm-9">
+					<textarea id="flaw" class="form-control" rows="2"
+						data-bind="value: model().flaw"></textarea>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

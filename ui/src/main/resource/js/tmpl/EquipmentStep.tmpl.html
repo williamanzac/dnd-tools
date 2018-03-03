@@ -1,0 +1,140 @@
+<div class="card mb-3" data-bind="css: {'border-primary': !complete()}">
+	<div class="card-header" data-bind="click: toggleExpanded">
+		<div class="d-flex">
+			<div class="mr-auto p-2" data-bind="text: i18n().get('startingequipment.name')"></div>
+			<button class="p-2 btn btn-link collapsed"
+				data-bind="visible: !expanded()">
+				<i class="fa fa-plus"></i>
+			</button>
+			<button class="p-2 btn btn-link collapsed"
+				data-bind="visible: expanded">
+				<i class="fa fa-minus"></i>
+			</button>
+		</div>
+	</div>
+	<div class="card-body collapse" data-bind="css: { show: expanded}">
+		<ul class="nav nav-tabs" data-bind="foreach: modes">
+			<li class="nav-item">
+				<a class="nav-link" href="#" data-bind="text: $parent.i18n().get('mode.' + $data + '.name'), css: {active: $data == $parent.currentMode()}, click: $parent.selectMode"></a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane" data-bind="css: {active: modeSelected('StartingEquipment')}">
+				<div class="card mt-3" data-bind="css: {'border-primary': !model().characterClass().startingEquipment.complete()}, if: model().characterClass()">
+					<div class="card-header" data-bind="text: i18n().get(model().characterClass().name + '.name') + ' ' + i18n().get('startingequipment.name')">
+					</div>
+					<!-- data-bind="template: {name: 'EquipmentOption', foreach: model().characterClass().startingEquipment.options}" -->
+					<div class="card-body">
+						<p data-bind="text: i18n().getForClass('startingequipment.description')"></p>
+						<!-- ko foreach: model().characterClass().startingEquipment.options -->
+						<!-- ko if: numberOfChoices == 0 -->
+						<div class="card" data-bind="css: {'mt-3': $index() > 0}">
+							<div class="card-body">
+								<span data-bind="text: $parent.i18n().getForClass('startingequipment.' + name + '.description')"></span>
+							</div>
+						</div>
+						<!-- /ko -->
+						<!-- ko if: numberOfChoices > 0 && items.length > 0 -->
+						<div class="card" data-bind="css: {'mt-3': $index() > 0, 'border-primary': !$data.complete()}">
+							<div class="card-body">
+								<span data-bind="text: $parent.i18n().getForClass('startingequipment.' + name + '.description')"></span>
+								<select class="form-control">
+									<option hidden>Select...</option>
+									<!-- ko foreach: items -->
+									<option data-bind="click: $parents[1].selectItem.bind($data, $data, $parent), attr: {selected: $parents[1].itemSelected($data, $parent)}, text: $parents[1].i18n().get('item.' + name + '.name')"></option>
+									<!-- /ko -->
+								</select>
+							</div>
+						</div>
+						<!-- /ko -->
+						<!-- ko if: numberOfChoices > 0 && options.length > 0 -->
+						<!-- data-bind="template: {name: 'EquipmentOptionOption', foreach: options}" -->
+						<div class="card" data-bind="css: {'mt-3': $index() > 0}">
+							<ul class="list-group list-group-flush" data-bind="foreach: options">
+								<li class="list-group-item list-group-item-action" data-bind="css: {'list-group-item-light': $parents[1].optionDisabled($data, $parent), 'list-group-item-primary': $parents[1].optionSelected($data, $parent)}, click: $parents[1].toggleOption.bind($data, $data, $parent)">
+									<span data-bind="text: $parents[1].i18n().getForClass('startingequipment.' + name + '.description')"></span>
+									<!-- ko if: numberOfChoices > 0 && items.length > 0 -->
+									<select class="form-control" data-bind="click: function() {}, clickBubble: false, disable: $parents[1].optionDisabled($data, $parent)">
+										<option hidden>Select...</option>
+										<!-- ko foreach: items -->
+										<option data-bind="click: $parents[2].selectItem.bind($data, $data, $parent), attr: {selected: $parents[2].itemSelected($data, $parent)}, text: $parents[2].i18n().get('item.' + name + '.name')"></option>
+										<!-- /ko -->
+									</select>
+									<!-- /ko -->
+								</li>
+							</ul>
+						</div>
+						<!-- /ko -->
+						<!-- /ko -->
+					</div>
+				</div>
+				<div class="card mt-3" data-bind="css: {'border-primary': !model().background().startingEquipment.complete()}, if: model().background()">
+					<div class="card-header" data-bind="text: i18n().get(model().background().name + '.name') + ' ' + i18n().get('startingequipment.name')">
+					</div>
+					<!-- data-bind="template: {name: 'EquipmentOption', foreach: model().background().startingEquipment.options}" -->
+					<div class="card-body">
+						<p data-bind="text: i18n().getForBackground('startingequipment.description')"></p>
+						<!-- ko foreach: model().background().startingEquipment.options -->
+						<!-- ko if: numberOfChoices == 0 -->
+						<div class="card" data-bind="css: {'mt-3': $index() > 0}">
+							<div class="card-body">
+								<span data-bind="text: $parent.i18n().getForBackground('startingequipment.' + name + '.description')"></span>
+							</div>
+						</div>
+						<!-- /ko -->
+						<!-- ko if: numberOfChoices > 0 && items.length > 0 -->
+						<div class="card" data-bind="css: {'mt-3': $index() > 0}">
+							<div class="card-body">
+								<span data-bind="text: $parent.i18n().getForBackground('startingequipment.' + name + '.description')"></span>
+								<select class="form-control">
+									<option hidden>Select...</option>
+									<!-- ko foreach: items -->
+									<option data-bind="click: $parents[1].selectItem.bind($data, $data, $parent), attr: {selected: $parents[1].itemSelected($data, $parent)}, text: $parents[1].i18n().get('item.' + name + '.name')"></option>
+									<!-- /ko -->
+								</select>
+							</div>
+						</div>
+						<!-- /ko -->
+						<!-- ko if: numberOfChoices > 0 && options.length > 0 -->
+						<!-- data-bind="template: {name: 'EquipmentOptionOption', foreach: options}" -->
+						<div class="card" data-bind="css: {'mt-3': $index() > 0}">
+							<ul class="list-group list-group-flush" data-bind="foreach: options">
+								<li class="list-group-item list-group-item-action" data-bind="css: {'list-group-item-light': $parents[1].optionDisabled($data, $parent), 'list-group-item-primary': $parents[1].optionSelected($data, $parent)}, click: $parents[1].toggleOption.bind($data, $data, $parent)">
+									<span data-bind="text: $parents[1].i18n().getForBackground('startingequipment.' + name + '.description')"></span>
+									<!-- ko if: numberOfChoices > 0 && items.length > 0 -->
+									<select class="form-control" data-bind="click: function() {}, clickBubble: false, disable: $parents[1].optionDisabled($data, $parent)">
+										<option hidden>Select...</option>
+										<!-- ko foreach: items -->
+										<option data-bind="click: $parents[2].selectItem.bind($data, $data, $parent), attr: {selected: $parents[2].itemSelected($data, $parent)}, text: $parents[2].i18n().get('item.' + name + '.name')"></option>
+										<!-- /ko -->
+									</select>
+									<!-- /ko -->
+								</li>
+							</ul>
+						</div>
+						<!-- /ko -->
+						<!-- /ko -->
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane" data-bind="css: {active: modeSelected('Gold')}">
+				<form>
+					<div class="form-group row">
+						<label for="startingWealth" class="col-sm-4 col-form-label" data-bind="text: i18n().get('startingwealth.name')"></label>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<input type="number" id="startingWealth" class="form-control" min='0' data-bind="value: model().startingWealth" />
+								<div class="input-group-append">
+									<span class="input-group-text">gp</span>
+									<button class="btn btn-outline-secondary" type="button" data-bind="click: generateStartingWealth">Generate</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- ko text: model().equipment -->
+	<!-- /ko -->
+</div>

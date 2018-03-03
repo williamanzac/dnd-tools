@@ -1,0 +1,20 @@
+<div class="card">
+	<div class="card-body" data-bind="template: {name: activeStep().view, data: activeStep}">
+	</div>
+	<div class="card-footer btn-toolbar justify-content-between" role="toolbar">
+		<div class="btn-group mr-2" role="group">
+			<button type="button" class="btn btn-secondary" data-bind="click: previousAction, enable: model().previousAvailable() && (activeStep() !== undefined && !activeStep().busy())">
+				<i class="fa fa-chevron-left"></i>
+				Back
+			</button>
+			<button type="button" class="btn btn-primary" data-bind="click: nextAction, enable: model().nextAvailable() && (activeStep() !== undefined && !activeStep().busy())">
+				Next
+				<i class="fa fa-chevron-right"></i>
+			</button>
+		</div>
+		<div class="btn-group mr-2" role="group">
+			<button type="button" class="btn btn-secondary" data-bind="click: finishAction, enable: activeStep() !== undefined && (model().isLastStep(activeStep()) && activeStep().complete() && !activeStep().busy())">Finish</button>
+			<button type="button" class="btn btn-warning" data-bind="click: cancelAction">Cancel</button>
+		</div>
+	</div>
+</div>

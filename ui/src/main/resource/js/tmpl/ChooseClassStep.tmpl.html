@@ -1,0 +1,5 @@
+
+<ul class="list-group" data-bind="foreach: classes">
+	<li class="list-group-item list-group-item-action"
+		data-bind="text: $parent.i18n().get(name + '.name'), click: $parent.setClass, css: { active: $parent.classSelected($data) }"></li>
+</ul>
