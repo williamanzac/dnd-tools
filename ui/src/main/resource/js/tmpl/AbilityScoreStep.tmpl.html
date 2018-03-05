@@ -20,7 +20,8 @@
 						<button type="button" class="btn btn-xs btn-outline-secondary"
 							data-bind="click: $parent.decreaseScore, enable: $parent.canDecrease($data)">
 							<i class="fa fa-minus"></i>
-						</button> <span data-bind="text: $parent.model().abilityScores()[$data]"></span>
+						</button>
+						<span data-bind="text: $parent.model().abilityScores()[$data]"></span>
 						<button type="button" class="btn btn-xs btn-outline-secondary"
 							data-bind="click: $parent.increaseScore, enable: $parent.canIncrease($data)">
 							<i class="fa fa-plus"></i>
@@ -30,7 +31,8 @@
 						<button type="button" class="btn btn-xs btn-outline-secondary"
 							data-bind="click: $parent.moveLeft.bind($data, $index()), enable: $index() > 0">
 							<i class="fa fa-chevron-left"></i>
-						</button> <span data-bind="text: $parent.model().abilityScores()[$data]"></span>
+						</button>
+						<span data-bind="text: $parent.model().abilityScores()[$data]"></span>
 						<button type="button" class="btn btn-xs btn-outline-secondary"
 							data-bind="click: $parent.moveRight.bind($data, $index()), enable: $index() < ($parent.abilities().length - 1)">
 							<i class="fa fa-chevron-right"></i>

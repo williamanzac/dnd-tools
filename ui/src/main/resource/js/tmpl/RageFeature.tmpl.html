@@ -2,10 +2,10 @@
 	<div class="card-header" data-bind="click: toggleExpanded">
 		<div class="d-flex">
 			<div class="mr-auto p-2" data-bind="html: i18n().getForClass(feature().name + '.name')"></div>
-			<button class="p-2 btn btn-link collapsed" data-bind="visible: !expanded()">
+			<button class="p-2 btn btn-link" data-bind="visible: !expanded()">
 				<i class="fa fa-plus"></i>
 	        </button>
-			<button class="p-2 btn btn-link collapsed" data-bind="visible: expanded">
+			<button class="p-2 btn btn-link" data-bind="visible: expanded">
 				<i class="fa fa-minus"></i>
 	        </button>
 		</div>
