@@ -49,19 +49,24 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function(
 		self.view("EquipmentStep");
 		self.complete(false);
 		self.i18n = ko.observable();
+		self.startingWealth = ko.observable();
 
 		self.modes = ko.observableArray(["StartingEquipment", "Gold"]);
 		self.currentMode = ko.observable();
-		self.expanded = ko.observable(false);
+		self.startingExpanded = ko.observable(false);
+		self.equipmentExpanded = ko.observable(false);
 
-		self.toggleExpanded = function() {
-			self.expanded(!self.expanded());
+		self.toggleStartingExpanded = function() {
+			self.startingExpanded(!self.startingExpanded());
+		};
+		self.toggleEquipmentExpanded = function() {
+			self.equipmentExpanded(!self.equipmentExpanded());
 		};
 
 		self.init = function(model) {
 			self.model(ko.unwrap(model));
 			self.i18n(new I18n(self.model));
-			self.model().startingWealth.subscribe(self.updateComplete);
+			self.startingWealth.subscribe(self.updateComplete);
 
 			self.model().characterClass().startingEquipment.complete = ko.pureComputed(StartingEquipmentComplete, self.model().characterClass().startingEquipment);
 			self.model().characterClass().startingEquipment.options.forEach(function(option) {
@@ -89,21 +94,21 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function(
 		};
 
 		self.addOptionItems = function(option) {
-			if (this.numberOfChoices == 0 && this.items.length > 0) {
-				this.items.forEach(function(item) {
-					self.model().equipment.push(item);
+			if (option.numberOfChoices == 0 && option.items.length > 0) {
+				option.items.forEach(function(item) {
+					self.model().equipment().addItem(item, true);
 				})
 			}
-			if (this.numberOfChoices > 0 && this.items.length > 0) {
-				this.items.forEach(function(item) {
-					if (self.selectedItems.indexOf(item.name) >= 0) {
-						self.model().equipment.push(item);
+			if (option.numberOfChoices > 0 && option.items.length > 0) {
+				option.items.forEach(function(item) {
+					if (option.selectedItems.indexOf(item.name) >= 0) {
+						self.model().equipment().addItem(item, true);
 					}
 				});
 			}
-			if (this.numberOfChoices > 0 && this.options.length > 0) {
-				this.options.forEach(function(item) {
-					if (self.selectedOptions.indexOf(item.name) >= 0) {
+			if (option.numberOfChoices > 0 && option.options.length > 0) {
+				option.options.forEach(function(item) {
+					if (option.selectedOptions.indexOf(item.name) >= 0) {
 						self.addOptionItems(item);
 					}
 				});
@@ -111,14 +116,15 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function(
 		};
 
 		self.updateComplete = function() {
-			self.model().equipment([]);
+			self.model().equipment().clear();
 			if (self.currentMode() == 'Gold') {
-				self.complete(self.model().startingWealth() > 0);
+				self.model().money().gold(self.startingWealth());
+				self.complete(self.startingWealth() > 0);
 			}
 			if (self.currentMode() == 'StartingEquipment') {
-				self.model().startingWealth(0);
 				self.model().characterClass().startingEquipment.options.forEach(self.addOptionItems);
 				self.model().background().startingEquipment.options.forEach(self.addOptionItems);
+				self.model().money().gold(self.model().background().money.gold);
 				self.complete(self.model().characterClass().startingEquipment.complete() && self.model().background().startingEquipment.complete());
 			}
 		};
@@ -195,7 +201,7 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function(
 				dataType : "json",
 				data: JSON.stringify(data)
 			}).done(function(money) {
-				self.model().startingWealth(money.gold);
+				self.startingWealth(money.gold);
 			});
 		};
 	}

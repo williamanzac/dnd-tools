@@ -1,6 +1,15 @@
-define([ 'jquery', 'knockout', '../model/StaticModel' ], function($, ko,
-        StaticModel) {
+define([ 'jquery', 'knockout', '../model/StaticModel', '../model/Equipment' ], function($, ko,
+        StaticModel, Equipment) {
 
+	function Money() {
+		var self = this;
+		self.platinum = ko.observable(0);
+		self.gold = ko.observable(0);
+		self.electrum = ko.observable(0);
+		self.silver = ko.observable(0);
+		self.copper = ko.observable(0);
+	}
+	
 	function CharacterBuilderModel() {
 		StaticModel.call(this);
 
@@ -36,8 +45,8 @@ define([ 'jquery', 'knockout', '../model/StaticModel' ], function($, ko,
 		self.enemies = ko.observable();
 		self.backstory = ko.observable();
 		self.other = ko.observable();
-		self.startingWealth = ko.observable();
-		self.equipment = ko.observableArray();
+		self.equipment = ko.observable(new Equipment());
+		self.money = ko.observable(new Money());
 
 		self.getAbilityScoreModifier = function(ability) {
 			return Math.floor((self.getAbilityScore(ability) - 10) / 2);

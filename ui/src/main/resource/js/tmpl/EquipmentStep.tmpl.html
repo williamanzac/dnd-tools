@@ -1,18 +1,18 @@
 <div class="card mb-3" data-bind="css: {'border-primary': !complete()}">
-	<div class="card-header" data-bind="click: toggleExpanded">
+	<div class="card-header" data-bind="click: toggleStartingExpanded">
 		<div class="d-flex">
 			<div class="mr-auto p-2" data-bind="text: i18n().get('startingequipment.name')"></div>
-			<button class="p-2 btn btn-link collapsed"
-				data-bind="visible: !expanded()">
+			<button class="p-2 btn btn-link"
+				data-bind="visible: !startingExpanded()">
 				<i class="fa fa-plus"></i>
 			</button>
-			<button class="p-2 btn btn-link collapsed"
-				data-bind="visible: expanded">
+			<button class="p-2 btn btn-link"
+				data-bind="visible: startingExpanded">
 				<i class="fa fa-minus"></i>
 			</button>
 		</div>
 	</div>
-	<div class="card-body collapse" data-bind="css: { show: expanded}">
+	<div class="card-body collapse" data-bind="css: { show: startingExpanded}">
 		<ul class="nav nav-tabs" data-bind="foreach: modes">
 			<li class="nav-item">
 				<a class="nav-link" href="#" data-bind="text: $parent.i18n().get('mode.' + $data + '.name'), css: {active: $data == $parent.currentMode()}, click: $parent.selectMode"></a>
@@ -23,7 +23,6 @@
 				<div class="card mt-3" data-bind="css: {'border-primary': !model().characterClass().startingEquipment.complete()}, if: model().characterClass()">
 					<div class="card-header" data-bind="text: i18n().get(model().characterClass().name + '.name') + ' ' + i18n().get('startingequipment.name')">
 					</div>
-					<!-- data-bind="template: {name: 'EquipmentOption', foreach: model().characterClass().startingEquipment.options}" -->
 					<div class="card-body">
 						<p data-bind="text: i18n().getForClass('startingequipment.description')"></p>
 						<!-- ko foreach: model().characterClass().startingEquipment.options -->
@@ -48,7 +47,6 @@
 						</div>
 						<!-- /ko -->
 						<!-- ko if: numberOfChoices > 0 && options.length > 0 -->
-						<!-- data-bind="template: {name: 'EquipmentOptionOption', foreach: options}" -->
 						<div class="card" data-bind="css: {'mt-3': $index() > 0}">
 							<ul class="list-group list-group-flush" data-bind="foreach: options">
 								<li class="list-group-item list-group-item-action" data-bind="css: {'list-group-item-light': $parents[1].optionDisabled($data, $parent), 'list-group-item-primary': $parents[1].optionSelected($data, $parent)}, click: $parents[1].toggleOption.bind($data, $data, $parent)">
@@ -71,7 +69,6 @@
 				<div class="card mt-3" data-bind="css: {'border-primary': !model().background().startingEquipment.complete()}, if: model().background()">
 					<div class="card-header" data-bind="text: i18n().get(model().background().name + '.name') + ' ' + i18n().get('startingequipment.name')">
 					</div>
-					<!-- data-bind="template: {name: 'EquipmentOption', foreach: model().background().startingEquipment.options}" -->
 					<div class="card-body">
 						<p data-bind="text: i18n().getForBackground('startingequipment.description')"></p>
 						<!-- ko foreach: model().background().startingEquipment.options -->
@@ -96,7 +93,6 @@
 						</div>
 						<!-- /ko -->
 						<!-- ko if: numberOfChoices > 0 && options.length > 0 -->
-						<!-- data-bind="template: {name: 'EquipmentOptionOption', foreach: options}" -->
 						<div class="card" data-bind="css: {'mt-3': $index() > 0}">
 							<ul class="list-group list-group-flush" data-bind="foreach: options">
 								<li class="list-group-item list-group-item-action" data-bind="css: {'list-group-item-light': $parents[1].optionDisabled($data, $parent), 'list-group-item-primary': $parents[1].optionSelected($data, $parent)}, click: $parents[1].toggleOption.bind($data, $data, $parent)">
@@ -123,7 +119,7 @@
 						<label for="startingWealth" class="col-sm-4 col-form-label" data-bind="text: i18n().get('startingwealth.name')"></label>
 						<div class="col-sm-8">
 							<div class="input-group">
-								<input type="number" id="startingWealth" class="form-control" min='0' data-bind="value: model().startingWealth" />
+								<input type="number" id="startingWealth" class="form-control" min='0' data-bind="value: startingWealth" />
 								<div class="input-group-append">
 									<span class="input-group-text">gp</span>
 									<button class="btn btn-outline-secondary" type="button" data-bind="click: generateStartingWealth">Generate</button>
@@ -135,6 +131,73 @@
 			</div>
 		</div>
 	</div>
-	<!-- ko text: model().equipment -->
-	<!-- /ko -->
+</div>
+<div class="card">
+	<div class="card-header" data-bind="click: toggleEquipmentExpanded">
+		<div class="d-flex">
+			<div class="mr-auto p-2" data-bind="text: i18n().get('equipment.name')"></div>
+			<button class="p-2 btn btn-link"
+				data-bind="visible: !equipmentExpanded()">
+				<i class="fa fa-plus"></i>
+			</button>
+			<button class="p-2 btn btn-link"
+				data-bind="visible: equipmentExpanded">
+				<i class="fa fa-minus"></i>
+			</button>
+		</div>
+	</div>
+	<div class="card-body collapse" data-bind="css: { show: equipmentExpanded}">
+		<h3 data-bind="text: i18n().get('money.name')"></h3>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Platinum</th>
+					<th>Gold</th>
+					<th>Electrum</th>
+					<th>Silver</th>
+					<th>Copper</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td data-bind="text: model().money().platinum"></td>
+					<td data-bind="text: model().money().gold"></td>
+					<td data-bind="text: model().money().electrum"></td>
+					<td data-bind="text: model().money().silver"></td>
+					<td data-bind="text: model().money().copper"></td>
+				</tr>
+			</tbody>
+		</table>
+		<h3 data-bind="text: i18n().get('equipment.name')"></h3>
+		<ul class="list-group" data-bind="foreach: model().equipment().items">
+			<li class="list-group-item list-group-item-action p-0" data-bind="click: toggleExpanded">
+				<div class="d-flex p-2">
+					<div class="mr-auto align-self-center" data-bind="text: $parent.i18n().get('item.' + item().name + '.name')"></div>
+					<div>
+						<button type="button" class="btn btn-xs btn-outline-secondary">
+							<i class="fa fa-minus"></i>
+						</button>
+						<span data-bind="text: quantity"></span>
+						<button type="button" class="btn btn-xs btn-outline-secondary">
+							<i class="fa fa-plus"></i>
+						</button>
+					</div>
+					<div class="btn-group btn-group-sm" role="group">
+						<button type="button" class="btn btn-link text-danger" title="Remove" data-bind="visible: !startingEquipment()">
+							<i class="fa fa-trash"></i>
+						</button>
+						<button class="btn btn-link" data-bind="visible: !expanded()">
+							<i class="fa fa-plus"></i>
+						</button>
+						<button class="p-2 btn btn-link" data-bind="visible: expanded">
+							<i class="fa fa-minus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="collapse border-top p-2 itemDescription" data-bind="css: { show: expanded}">
+					<span data-bind="text: $parent.i18n().get('item.' + item().name + '.description')"></span>
+				</div>
+			</li>
+		</ul>
+	</div>
 </div>
