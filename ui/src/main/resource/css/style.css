@@ -9,9 +9,9 @@ div.card-body > backgroundfeaturepanel:last-child > div {
 	margin-bottom: 0 !important;
 }
 
-#abilityScores div {
+/*#abilityScores div {
 	overflow-x: auto;
-}
+}*/
 
 li.list-group-item-action:hover .itemDescription {
 	background-color: white;

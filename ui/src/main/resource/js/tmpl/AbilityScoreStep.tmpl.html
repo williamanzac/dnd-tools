@@ -1,11 +1,11 @@
 
 <ul class="nav nav-tabs" data-bind="foreach: modes">
-	<li class="nav-item"><a class="nav-link" href="#"
-		data-bind="text: name, css: {active: $data == $parent.currentMode()}, click: $parent.selectMode"></a>
+	<li class="nav-item">
+		<a class="nav-link" href="#" data-bind="text: name, css: {active: $data == $parent.currentMode()}, click: $parent.selectMode"></a>
 	</li>
 </ul>
 <div class="tab-content" id="abilityScores">
-	<div class="tab-pane active">
+	<div class="tab-pane active table-responsive">
 		<table class="table text-center mb-0">
 			<thead>
 				<tr data-bind="foreach: abilities">
