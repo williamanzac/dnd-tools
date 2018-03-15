@@ -1,15 +1,6 @@
-define([ 'jquery', 'knockout', '../model/StaticModel', '../model/Equipment' ], function($, ko,
-        StaticModel, Equipment) {
+define([ 'jquery', 'knockout', '../model/StaticModel', '../model/Equipment', '../model/Money' ], function($, ko,
+        StaticModel, Equipment, Money) {
 
-	function Money() {
-		var self = this;
-		self.platinum = ko.observable(0);
-		self.gold = ko.observable(0);
-		self.electrum = ko.observable(0);
-		self.silver = ko.observable(0);
-		self.copper = ko.observable(0);
-	}
-	
 	function CharacterBuilderModel() {
 		StaticModel.call(this);
 

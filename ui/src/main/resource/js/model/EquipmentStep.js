@@ -1,4 +1,4 @@
-define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function($, ko, WizardStep, I18n) {
+define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n', '../model/CharacterItem' ], function($, ko, WizardStep, I18n, CharacterItem) {
 	
 	function StartingEquipmentComplete() {
 		var complete = true;
@@ -50,17 +50,31 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function(
 		self.complete(false);
 		self.i18n = ko.observable();
 		self.startingWealth = ko.observable();
+		self.gear = ko.observableArray();
+		self.armour = ko.observableArray();
+		self.weapons = ko.observableArray();
+		self.packs = ko.observableArray();
 
 		self.modes = ko.observableArray(["StartingEquipment", "Gold"]);
+		self.addItemModes = ko.observableArray(["Gear", "Armour", "Weapons", "Packs"]);
 		self.currentMode = ko.observable();
+		self.currentAddItemMode = ko.observable();
 		self.startingExpanded = ko.observable(false);
 		self.equipmentExpanded = ko.observable(false);
+		self.moneyExpanded = ko.observable(false);
+		self.addEquipmentExpanded = ko.observable(false);
 
 		self.toggleStartingExpanded = function() {
 			self.startingExpanded(!self.startingExpanded());
 		};
 		self.toggleEquipmentExpanded = function() {
 			self.equipmentExpanded(!self.equipmentExpanded());
+		};
+		self.toggleMoneyExpanded = function() {
+			self.moneyExpanded(!self.moneyExpanded());
+		};
+		self.toggleAddEquipmentExpanded = function() {
+			self.addEquipmentExpanded(!self.addEquipmentExpanded());
 		};
 
 		self.init = function(model) {
@@ -137,8 +151,19 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function(
 			self.updateComplete();
 		};
 		
+		self.selectAddItemMode = function(mode) {
+			if (self.currentAddItemMode() === mode) {
+				return;
+			}
+			self.currentAddItemMode(mode);
+		};
+		
 		self.modeSelected = function(mode) {
 			return self.currentMode() === mode;
+		};
+		
+		self.addItemModeSelected = function(mode) {
+			return self.currentAddItemMode() === mode;
 		};
 		
 		self.toggleOption = function(option, parent) {
@@ -204,6 +229,97 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function(
 				self.startingWealth(money.gold);
 			});
 		};
+
+		self.addItem = function(item) {
+			var gold = self.model().money().gold();
+			if (gold - item.item().cost < 0) {
+				return;
+			}
+			self.model().equipment().addItem(item.item());
+			gold -= item.item().cost;
+			self.model().money().gold(gold);
+		};
+		
+		self.canAddItem = function(item) {
+			var gold = self.model().money().gold();
+			gold *= 1;
+			gold -= item.item().cost;
+			return gold >= 0;
+		};
+
+		self.removeItem = function(item) {
+			var gold = self.model().money().gold();
+			gold *= 1;
+			self.model().equipment().removeItem(item);
+			gold += (item.item().cost * item.quantity());
+			self.model().money().gold(gold);
+		};
+
+		self.increaseQuantity = function(item) {
+			var quantity = item.quantity();
+			var gold = self.model().money().gold();
+			quantity *= 1;
+			gold *= 1;
+			if (gold - item.item().cost < 0) {
+				return;
+			}
+			quantity += 1;
+			item.quantity(quantity);
+			gold -= item.item().cost;
+			self.model().money().gold(gold);
+		};
+		
+		self.canIncrease = function(item) {
+			var gold = self.model().money().gold();
+			gold *= 1;
+			gold -= item.item().cost;
+			return gold >= 0;
+		};
+		
+		self.decreaseQuantity = function(item) {
+			var quantity = item.quantity();
+			var startingQuantity = item.startingQuantity();
+			quantity *= 1;
+			startingQuantity *= 1;
+			if (quantity <= startingQuantity) {
+				return;
+			}
+			quantity -= 1;
+			item.quantity(quantity);
+			var gold = self.model().money().gold();
+			gold *= 1;
+			gold += item.item().cost;
+			self.model().money().gold(gold);
+		};
+		
+		self.canDecrease = function(item) {
+			return item.quantity() > item.startingQuantity();
+		};
+		
+		$.getJSON("/items/gear", function(data) {
+			var mapped = $.map(data, function(item) {
+				return new CharacterItem(item)
+			});
+			self.gear(mapped);
+		});
+		$.getJSON("/items/armour", function(data) {
+			var mapped = $.map(data, function(item) {
+				return new CharacterItem(item)
+			});
+			self.armour(mapped);
+		});
+		$.getJSON("/items/weapons", function(data) {
+			var mapped = $.map(data, function(item) {
+				return new CharacterItem(item)
+			});
+			self.weapons(mapped);
+		});
+		$.getJSON("/items/packs", function(data) {
+			var mapped = $.map(data, function(item) {
+				return new CharacterItem(item)
+			});
+			self.packs(mapped);
+		});
 	}
 
 	EquipmentStep.prototype = Object.create(WizardStep.prototype);

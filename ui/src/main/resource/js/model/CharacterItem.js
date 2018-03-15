@@ -3,6 +3,7 @@ define([ 'jquery', 'knockout' ], function($, ko) {
 		var self = this;
 		self.item = ko.observable(item);
 		self.quantity = ko.observable(quantity);
+		self.startingQuantity = ko.observable(quantity);
 		self.equipped = ko.observable(false);
 		self.startingEquipment = ko.observable(startingEquipment || false);
 		self.expanded = ko.observable(false);
@@ -10,7 +11,7 @@ define([ 'jquery', 'knockout' ], function($, ko) {
 		self.toggleExpanded = function() {
 			self.expanded(!self.expanded());
 		};
-}
+	}
 	
 	return CharacterItem;
 });

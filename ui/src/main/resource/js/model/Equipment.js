@@ -26,14 +26,32 @@ define([ 'jquery', 'knockout', '../model/CharacterItem' ], function($, ko, Chara
 			var k = self.keys();
 			var i = self.items();
 			if (k.indexOf(name) < 0) {
-				self.items.push(new CharacterItem(item, 1, startingEquipment));
+				if (item.items !== undefined) {
+					item.items.forEach(function(i) {
+						self.addItem(i, startingEquipment);
+					});
+				} else {
+					self.items.push(new CharacterItem(item, 1, startingEquipment));
+				}
 			} else {
 				var chItem = self.getItemByName(name);
 				var q = chItem.quantity();
 				q *= 1;
-				chItem.quantity(q + 1);
+				q += 1;
+				chItem.quantity(q);
+				if (startingEquipment) {
+					chItem.startingQuantity(q);
+				}
 			}
 		};
+		
+		self.removeItem = function(item) {
+			if (item.item() !== undefined) {
+				item = item.item();
+			}
+			const result = self.items().filter(i => i.item().name !== item.name);
+			self.items(result);
+		}
 		
 		self.clear = function() {
 			self.items([]);

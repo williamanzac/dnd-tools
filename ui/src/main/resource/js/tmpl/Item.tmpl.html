@@ -1,0 +1,22 @@
+
+<li class="list-group-item list-group-item-action p-0"
+	data-bind="click: toggleExpanded">
+	<div class="d-flex p-2">
+		<div class="mr-auto align-self-center"
+			data-bind="text: $parent.i18n().get('item.' + item().name + '.name')"></div>
+		<div class="btn-group btn-group-sm align-self-center" role="group">
+			<button type="button" class="btn btn-link" title="Add"
+				data-bind="click: $parent.addItem, clickBubble: false, enable: $parent.canAddItem($data)">
+				<i class="fa fa-plus"></i>
+			</button>
+			<button class="btn btn-link" data-bind="visible: !expanded()">
+				<i class="fa fa-angle-down"></i>
+			</button>
+			<button class="btn btn-link" data-bind="visible: expanded">
+				<i class="fa fa-angle-up"></i>
+			</button>
+		</div>
+	</div>
+	<!-- ko template: {name: 'EquipmentItemDetail', model: $data} -->
+	<!-- /ko -->
+</li>

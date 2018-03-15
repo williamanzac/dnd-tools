@@ -1,0 +1,54 @@
+
+<div class="collapse border-top p-2 itemDescription"
+	data-bind="css: { show: expanded}">
+	<form>
+		<div class="form-row">
+			<div class="form-group col" data-bind="visible: item().damageDice">
+				<label class="text-muted text-uppercase small">Damage</label> <input
+					type="text" readonly class="form-control-plaintext"
+					data-bind="value: item().damageDice" />
+			</div>
+			<div class="form-group col" data-bind="visible: item().damageType">
+				<label class="text-muted text-uppercase small">Damage Type</label> <input
+					type="text" readonly class="form-control-plaintext"
+					data-bind="value: item().damageType" />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col" data-bind="visible: item().type">
+				<label class="text-muted text-uppercase small">Weapon Type</label> <input
+					type="text" readonly class="form-control-plaintext"
+					data-bind="value: item().type" />
+			</div>
+			<div class="form-group col">
+				<label class="text-muted text-uppercase small">Rarity</label> <input
+					type="text" readonly class="form-control-plaintext" value="--" />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col" data-bind="visible: item().attackType">
+				<label class="text-muted text-uppercase small">Attack Type</label> <input
+					type="text" readonly class="form-control-plaintext"
+					data-bind="value: item().attackType" />
+			</div>
+			<div class="form-group col" data-bind="visible: item().weight">
+				<label class="text-muted text-uppercase small">Weight</label> <input
+					type="text" readonly class="form-control-plaintext"
+					data-bind="value: item().weight + 'lb'" />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col" data-bind="visible: item().properties">
+				<label class="text-muted text-uppercase small">Properties</label> <input
+					type="text" readonly class="form-control-plaintext"
+					data-bind="value: item().properties" />
+			</div>
+			<div class="form-group col">
+				<label class="text-muted text-uppercase small">Reach</label> <input
+					type="text" readonly class="form-control-plaintext" value="5ft" />
+			</div>
+		</div>
+	</form>
+	<div class="border-top p-2"
+		data-bind="text: $parent.i18n().get('item.' + item().name + '.description')"></div>
+</div>
