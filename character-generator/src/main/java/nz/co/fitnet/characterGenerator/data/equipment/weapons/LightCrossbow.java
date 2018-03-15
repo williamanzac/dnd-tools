@@ -1,6 +1,7 @@
 package nz.co.fitnet.characterGenerator.data.equipment.weapons;
 
 import static nz.co.fitnet.characterGenerator.api.DamageType.Piercing;
+import static nz.co.fitnet.characterGenerator.api.equipment.AttackType.Ranged;
 import static nz.co.fitnet.characterGenerator.api.equipment.WeaponProperty.Ammunition;
 import static nz.co.fitnet.characterGenerator.api.equipment.WeaponProperty.Loading;
 import static nz.co.fitnet.characterGenerator.api.equipment.WeaponProperty.TwoHanded;
@@ -11,6 +12,6 @@ import nz.co.fitnet.characterGenerator.api.equipment.WeaponRange;
 
 public class LightCrossbow extends Weapon {
 	public LightCrossbow() {
-		super(5, Simple, Piercing, "1d8", new WeaponRange(80, 320), 25, Ammunition, Loading, TwoHanded);
+		super(5, Simple, Ranged, Piercing, "1d8", new WeaponRange(80, 320), 25, Ammunition, Loading, TwoHanded);
 	}
 }

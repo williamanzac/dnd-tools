@@ -1,7 +1,7 @@
 package nz.co.fitnet.characterGenerator.data.startingequipment;
 
 import static java.util.stream.Collectors.toList;
-import static nz.co.fitnet.characterGenerator.api.equipment.WeaponProperty.Ammunition;
+import static nz.co.fitnet.characterGenerator.api.equipment.AttackType.Melee;
 import static nz.co.fitnet.characterGenerator.api.equipment.WeaponType.Martial;
 import static nz.co.fitnet.characterGenerator.api.equipment.WeaponType.Simple;
 import static nz.co.fitnet.characterGenerator.data.Packs.EXPLORERS_PACK;
@@ -21,8 +21,7 @@ public class BarbarianStartingEquipment extends StartingEquipment {
 		// (a) a greataxe or (b) any martial melee weapon
 		final EquipmentOption aa = new EquipmentOption("aa", GREATAXE);
 		List<Weapon> list = weaponList.stream()
-				.filter(weapon -> weapon.getType() == Martial && !weapon.getProperties().contains(Ammunition))
-				.collect(toList());
+				.filter(weapon -> weapon.getType() == Martial && weapon.getAttackType() == Melee).collect(toList());
 		final EquipmentOption ab = new EquipmentOption("ab", 1, list);
 		final EquipmentOption a = new EquipmentOption("a", 1, aa, ab);
 		// (a) two handaxes or (b) any simple weapon

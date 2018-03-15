@@ -14,14 +14,15 @@ public abstract class Weapon extends Item {
 	private final String damageDice;
 	private final String twohandDamageDice;
 	private final WeaponRange range;
+	private final AttackType attackType;
 
-	public Weapon(final double weight, final WeaponType type, final DamageType damageType, final String damageDice,
-			final WeaponRange range, final double cost, final WeaponProperty... properties) {
-		this(weight, type, damageType, damageDice, null, range, cost, properties);
+	public Weapon(final double weight, final WeaponType type, final AttackType attackType, final DamageType damageType,
+			final String damageDice, final WeaponRange range, final double cost, final WeaponProperty... properties) {
+		this(weight, type, attackType, damageType, damageDice, null, range, cost, properties);
 	}
 
-	public Weapon(final double weight, final WeaponType type, final DamageType damageType, final String damageDice,
-			final String twohandDamageDice, final WeaponRange range, final double cost,
+	public Weapon(final double weight, final WeaponType type, final AttackType attackType, final DamageType damageType,
+			final String damageDice, final String twohandDamageDice, final WeaponRange range, final double cost,
 			final WeaponProperty... properties) {
 		super(weight, cost);
 		this.type = type;
@@ -30,6 +31,7 @@ public abstract class Weapon extends Item {
 		this.damageDice = damageDice;
 		this.twohandDamageDice = twohandDamageDice;
 		this.range = range;
+		this.attackType = attackType;
 	}
 
 	public WeaponType getType() {
@@ -54,5 +56,9 @@ public abstract class Weapon extends Item {
 
 	public String getTwohandDamageDice() {
 		return twohandDamageDice;
+	}
+
+	public AttackType getAttackType() {
+		return attackType;
 	}
 }

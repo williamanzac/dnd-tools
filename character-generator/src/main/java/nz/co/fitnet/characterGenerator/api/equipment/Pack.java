@@ -1,7 +1,8 @@
 package nz.co.fitnet.characterGenerator.api.equipment;
 
+import static java.util.Arrays.asList;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Pack extends Item {
@@ -9,7 +10,7 @@ public class Pack extends Item {
 
 	public Pack(final double cost, final Item... items) {
 		super(0, cost);
-		this.items.addAll(Arrays.asList(items));
+		this.items.addAll(asList(items));
 	}
 
 	@Override

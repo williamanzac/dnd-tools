@@ -1,11 +1,13 @@
 package nz.co.fitnet.characterGenerator.data.equipment.weapons;
 
-import nz.co.fitnet.characterGenerator.api.DamageType;
+import static nz.co.fitnet.characterGenerator.api.DamageType.Bludgeoning;
+import static nz.co.fitnet.characterGenerator.api.equipment.AttackType.Melee;
+import static nz.co.fitnet.characterGenerator.api.equipment.WeaponType.Simple;
+
 import nz.co.fitnet.characterGenerator.api.equipment.Weapon;
-import nz.co.fitnet.characterGenerator.api.equipment.WeaponType;
 
 public class UnarmedStrike extends Weapon {
 	public UnarmedStrike() {
-		super(0, WeaponType.Simple, DamageType.Bludgeoning, "1", null, 0);
+		super(0, Simple, Melee, Bludgeoning, "1", null, 0);
 	}
 }
