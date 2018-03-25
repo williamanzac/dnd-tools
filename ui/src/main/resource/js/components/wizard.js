@@ -54,7 +54,7 @@ define([ 'knockout', 'text!../components/wizard.html', '../model/WizardModel', '
 		} else {
 			self.model = ko.observable(ko.unwrap(params.model));
 		}
-		self.defaultExitMode = EXIT_ON_CLOSE;
+		self.defaultExitMode = EXIT_ON_FINISH;
 
 		// private final JComponent titleComponent;
 		// private final ButtonBar buttonBar;

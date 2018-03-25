@@ -81,7 +81,9 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n', '../model/C
 			self.model(ko.unwrap(model));
 			self.i18n(new I18n(self.model));
 			self.startingWealth.subscribe(self.updateComplete);
+		};
 
+		self.prepare = function() {
 			self.model().characterClass().startingEquipment.complete = ko.pureComputed(StartingEquipmentComplete, self.model().characterClass().startingEquipment);
 			self.model().characterClass().startingEquipment.options.forEach(function(option) {
 				option.selectedOptions = ko.observableArray();
