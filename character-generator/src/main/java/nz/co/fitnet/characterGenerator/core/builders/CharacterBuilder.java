@@ -29,8 +29,8 @@ import nz.co.fitnet.numberGenerator.api.NumberService;
 @Service
 public class CharacterBuilder {
 
-	private static final RandomCompator<Gender> GENDER_COMPARATOR = new RandomCompator<>();
-	private static final RandomCompator<Background> BACKGROUND_COMPARATOR = new RandomCompator<>();
+	private final RandomComparator<Gender> genderComparator;
+	private final RandomComparator<Background> backgroundComparator;
 
 	public static class CharacterBuilderException extends Exception {
 		private static final long serialVersionUID = -1174219164699864073L;
@@ -40,22 +40,14 @@ public class CharacterBuilder {
 		}
 	}
 
-	@Inject
-	private HeightAndWeightBuilder heightAndWeightBuilder;
-	@Inject
-	private AgeBuilder ageBuilder;
-	@Inject
-	private LanguageBuilder languageBuilder;
-	@Inject
-	private AbilitiesBuilder abilitiesBuilder;
-	@Inject
-	private ProficiencyBuilder proficiencyBuilder;
-	@Inject
-	private StartingEquipmentBuilder startingEquipmentBuilder;
-	@Inject
-	private BackgroundBuilder backgroundBuilder;
-	@Inject
-	private StartingWealthBuilder startingWealthBuilder;
+	private final HeightAndWeightBuilder heightAndWeightBuilder;
+	private final AgeBuilder ageBuilder;
+	private final LanguageBuilder languageBuilder;
+	private final AbilitiesBuilder abilitiesBuilder;
+	private final ProficiencyBuilder proficiencyBuilder;
+	private final StartingEquipmentBuilder startingEquipmentBuilder;
+	private final BackgroundBuilder backgroundBuilder;
+	private final StartingWealthBuilder startingWealthBuilder;
 
 	private Race race;
 	private final Map<Ability, Integer> abilityScores = new HashMap<>();
@@ -65,6 +57,23 @@ public class CharacterBuilder {
 	private Background background;
 	private Gender gender;
 	private boolean useStartingWealth;
+
+	@Inject
+	public CharacterBuilder(final NumberService numberService, final HeightAndWeightBuilder heightAndWeightBuilder,
+			final AgeBuilder ageBuilder, final LanguageBuilder languageBuilder, final AbilitiesBuilder abilitiesBuilder,
+			final ProficiencyBuilder proficiencyBuilder, final StartingEquipmentBuilder startingEquipmentBuilder,
+			final BackgroundBuilder backgroundBuilder, final StartingWealthBuilder startingWealthBuilder) {
+		genderComparator = new RandomComparator<>(numberService);
+		backgroundComparator = new RandomComparator<>(numberService);
+		this.abilitiesBuilder = abilitiesBuilder;
+		this.ageBuilder = ageBuilder;
+		this.backgroundBuilder = backgroundBuilder;
+		this.heightAndWeightBuilder = heightAndWeightBuilder;
+		this.languageBuilder = languageBuilder;
+		this.proficiencyBuilder = proficiencyBuilder;
+		this.startingEquipmentBuilder = startingEquipmentBuilder;
+		this.startingWealthBuilder = startingWealthBuilder;
+	}
 
 	public Character build() throws CharacterBuilderException {
 		if (race == null) {
@@ -89,7 +98,7 @@ public class CharacterBuilder {
 				.withNumberToolProfifiencies(race.getNumberToolProficiencies());
 
 		if (background == null) {
-			background = Backgrounds.backgroundList.stream().sorted(BACKGROUND_COMPARATOR).findFirst().get();
+			background = Backgrounds.backgroundList.stream().sorted(backgroundComparator).findFirst().get();
 		}
 		backgroundBuilder.withBackground(background);
 
@@ -107,7 +116,7 @@ public class CharacterBuilder {
 		}
 
 		if (gender == null) {
-			gender = Stream.of(Gender.values()).sorted(GENDER_COMPARATOR).findFirst().get();
+			gender = Stream.of(Gender.values()).sorted(genderComparator).findFirst().get();
 		}
 
 		final int height = heightAndWeightBuilder.buildHeight();
@@ -194,42 +203,5 @@ public class CharacterBuilder {
 	public CharacterBuilder withUsingStartingWealth() {
 		useStartingWealth = true;
 		return this;
-	}
-
-	void setHeightAndWeightBuilder(final HeightAndWeightBuilder builder) {
-		heightAndWeightBuilder = builder;
-	}
-
-	void setAgeBuilder(final AgeBuilder builder) {
-		ageBuilder = builder;
-	}
-
-	void setLanguageBuilder(final LanguageBuilder languageBuilder) {
-		this.languageBuilder = languageBuilder;
-	}
-
-	void setAbilitiesBuilder(final AbilitiesBuilder abilitiesBuilder) {
-		this.abilitiesBuilder = abilitiesBuilder;
-	}
-
-	void setProficiencyBuilder(final ProficiencyBuilder proficiencyBuilder) {
-		this.proficiencyBuilder = proficiencyBuilder;
-	}
-
-	void setStartingEquipmentBuilder(final StartingEquipmentBuilder startingEquipmentBuilder) {
-		this.startingEquipmentBuilder = startingEquipmentBuilder;
-	}
-
-	void setNumberService(final NumberService numberService) {
-		BACKGROUND_COMPARATOR.setNumberService(numberService);
-		GENDER_COMPARATOR.setNumberService(numberService);
-	}
-
-	void setBackgroundBuilder(final BackgroundBuilder backgroundBuilder) {
-		this.backgroundBuilder = backgroundBuilder;
-	}
-
-	void setStartingWealthBuilder(final StartingWealthBuilder startingWealthBuilder) {
-		this.startingWealthBuilder = startingWealthBuilder;
 	}
 }

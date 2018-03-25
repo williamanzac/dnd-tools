@@ -6,9 +6,13 @@ import javax.inject.Inject;
 
 import nz.co.fitnet.numberGenerator.api.NumberService;
 
-public class RandomCompator<T> implements Comparator<T> {
+public class RandomComparator<T> implements Comparator<T> {
+	private final NumberService numberService;
+
 	@Inject
-	private NumberService numberService;
+	public RandomComparator(final NumberService numberService) {
+		this.numberService = numberService;
+	}
 
 	@Override
 	public int compare(final T o1, final T o2) {
@@ -22,9 +26,5 @@ public class RandomCompator<T> implements Comparator<T> {
 			return -1;
 		}
 		return 0;
-	}
-
-	void setNumberService(final NumberService numberService) {
-		this.numberService = numberService;
 	}
 }

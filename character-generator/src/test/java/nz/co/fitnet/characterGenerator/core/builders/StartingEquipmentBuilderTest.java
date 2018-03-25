@@ -27,8 +27,7 @@ public class StartingEquipmentBuilderTest {
 	public void setup() {
 		numberService = new NumberGenerator();
 
-		startingEquipmentBuilder = new StartingEquipmentBuilder();
-		startingEquipmentBuilder.setNumberService(numberService);
+		startingEquipmentBuilder = new StartingEquipmentBuilder(numberService);
 	}
 
 	@Test

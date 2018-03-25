@@ -12,14 +12,13 @@ import nz.co.fitnet.numberGenerator.core.NumberGenerator;
 
 public class RandomComparatorTest {
 	private NumberService numberService;
-	private RandomCompator<Integer> randomCompator;
+	private RandomComparator<Integer> randomCompator;
 
 	@Before
 	public void setup() {
 		numberService = new NumberGenerator();
 
-		randomCompator = new RandomCompator<>();
-		randomCompator.setNumberService(numberService);
+		randomCompator = new RandomComparator<>(numberService);
 	}
 
 	@Test

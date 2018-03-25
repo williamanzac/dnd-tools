@@ -52,33 +52,21 @@ public class CharacterBuilderTest {
 
 		ageBuilder = new AgeBuilder(numberService);
 
-		languageBuilder = new LanguageBuilder();
-		languageBuilder.setNumberService(numberService);
+		languageBuilder = new LanguageBuilder(numberService);
 
-		abilitiesBuilder = new AbilitiesBuilder();
-		abilitiesBuilder.setNumberService(numberService);
+		abilitiesBuilder = new AbilitiesBuilder(numberService);
 
-		proficiencyBuilder = new ProficiencyBuilder();
-		proficiencyBuilder.setNumberService(numberService);
+		proficiencyBuilder = new ProficiencyBuilder(numberService);
 
-		startingEquipmentBuilder = new StartingEquipmentBuilder();
-		startingEquipmentBuilder.setNumberService(numberService);
+		startingEquipmentBuilder = new StartingEquipmentBuilder(numberService);
 
-		backgroundBuilder = new BackgroundBuilder();
-		backgroundBuilder.setNumberService(numberService);
+		backgroundBuilder = new BackgroundBuilder(numberService);
 
 		startingWealthBuilder = new StartingWealthBuilder(numberService);
 
-		characterBuilder = new CharacterBuilder();
-		characterBuilder.setHeightAndWeightBuilder(heightAndWeightBuilder);
-		characterBuilder.setAgeBuilder(ageBuilder);
-		characterBuilder.setLanguageBuilder(languageBuilder);
-		characterBuilder.setAbilitiesBuilder(abilitiesBuilder);
-		characterBuilder.setProficiencyBuilder(proficiencyBuilder);
-		characterBuilder.setStartingEquipmentBuilder(startingEquipmentBuilder);
-		characterBuilder.setBackgroundBuilder(backgroundBuilder);
-		characterBuilder.setNumberService(numberService);
-		characterBuilder.setStartingWealthBuilder(startingWealthBuilder);
+		characterBuilder = new CharacterBuilder(numberService, heightAndWeightBuilder, ageBuilder, languageBuilder,
+				abilitiesBuilder, proficiencyBuilder, startingEquipmentBuilder, backgroundBuilder,
+				startingWealthBuilder);
 	}
 
 	@Test

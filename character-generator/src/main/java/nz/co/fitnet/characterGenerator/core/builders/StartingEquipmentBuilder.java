@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import nz.co.fitnet.characterGenerator.api.equipment.CharacterItem;
 import nz.co.fitnet.characterGenerator.api.equipment.EquipmentOption;
 import nz.co.fitnet.characterGenerator.api.equipment.Item;
@@ -15,10 +17,16 @@ import nz.co.fitnet.characterGenerator.api.equipment.StartingEquipment;
 import nz.co.fitnet.numberGenerator.api.NumberService;
 
 public class StartingEquipmentBuilder {
-	private static final RandomCompator<Item> ITEM_COMPARATOR = new RandomCompator<>();
-	private static final RandomCompator<EquipmentOption> EQUIPMENT_OPTION_COMPARATOR = new RandomCompator<>();
+	private final RandomComparator<Item> itemComparator;
+	private final RandomComparator<EquipmentOption> equipmentOptionComparator;
 
 	private final List<StartingEquipment> startingEquipment = new ArrayList<>();
+
+	@Inject
+	public StartingEquipmentBuilder(final NumberService numberService) {
+		itemComparator = new RandomComparator<>(numberService);
+		equipmentOptionComparator = new RandomComparator<>(numberService);
+	}
 
 	public StartingEquipmentBuilder withStartingEquipment(final StartingEquipment startingEquipment) {
 		this.startingEquipment.add(startingEquipment);
@@ -47,11 +55,11 @@ public class StartingEquipmentBuilder {
 			}
 		} else {
 			if (!option.getItems().isEmpty()) {
-				final List<Item> list = option.getItems().stream().sorted(ITEM_COMPARATOR).limit(numberOfChoices)
+				final List<Item> list = option.getItems().stream().sorted(itemComparator).limit(numberOfChoices)
 						.collect(toList());
 				items.addAll(list);
 			} else {
-				final List<EquipmentOption> list = option.getOptions().stream().sorted(EQUIPMENT_OPTION_COMPARATOR)
+				final List<EquipmentOption> list = option.getOptions().stream().sorted(equipmentOptionComparator)
 						.limit(numberOfChoices).collect(toList());
 				list.forEach(o -> {
 					final List<Item> itemsForOption = getItemsForOption(o);
@@ -71,10 +79,5 @@ public class StartingEquipmentBuilder {
 		});
 		items.addAll(itemMap.values());
 		return items;
-	}
-
-	void setNumberService(final NumberService numberService) {
-		ITEM_COMPARATOR.setNumberService(numberService);
-		EQUIPMENT_OPTION_COMPARATOR.setNumberService(numberService);
 	}
 }

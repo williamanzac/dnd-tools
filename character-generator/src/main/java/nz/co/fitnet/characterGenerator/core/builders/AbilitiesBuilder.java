@@ -16,13 +16,18 @@ import nz.co.fitnet.numberGenerator.api.NumberService;
 
 public class AbilitiesBuilder {
 
-	private static final RandomCompator<Object> RANDOM_COMPATOR = new RandomCompator<>();
+	private final RandomComparator<Ability> comparator;
 	private final Map<Ability, Integer> abilityScores = new HashMap<>();
 	private Ability primaryAbility;
 	private Ability secondaryAbility;
 
+	private final NumberService numberService;
+
 	@Inject
-	private NumberService numberService;
+	public AbilitiesBuilder(final NumberService numberService) {
+		this.numberService = numberService;
+		comparator = new RandomComparator<>(numberService);
+	}
 
 	public AbilitiesBuilder withAbilityScores(final Map<Ability, Integer> abilityScores) {
 		this.abilityScores.putAll(abilityScores);
@@ -62,7 +67,7 @@ public class AbilitiesBuilder {
 					if (o2 == secondaryAbility && o1 != secondaryAbility) {
 						return 1;
 					}
-					return RANDOM_COMPATOR.compare(o1, o2);
+					return comparator.compare(o1, o2);
 				}).collect(Collectors.toList());
 		final List<Integer> statList = abilityList.stream().map((ability) -> generateScore()).sorted((a, b) -> b - a)
 				.collect(toList());
@@ -77,10 +82,5 @@ public class AbilitiesBuilder {
 	private int generateScore() {
 		final List<Integer> dice = numberService.rollDice(6, 4); // 4d6
 		return dice.stream().sorted().skip(1).reduce((t, n) -> t + n).get().intValue();
-	}
-
-	void setNumberService(final NumberService numberService) {
-		this.numberService = numberService;
-		RANDOM_COMPATOR.setNumberService(numberService);
 	}
 }
