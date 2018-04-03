@@ -5,10 +5,11 @@ import static nz.co.fitnet.characterGenerator.api.Language.Dwarvish;
 import static nz.co.fitnet.characterGenerator.api.MovementType.walk;
 import static nz.co.fitnet.characterGenerator.api.Sense.Darkvision;
 import static nz.co.fitnet.characterGenerator.api.Size.Medium;
+import static nz.co.fitnet.characterGenerator.core.builders.StandardAbilitiesBuilder.STANDARD_ARRAY;
 import static nz.co.fitnet.characterGenerator.data.Backgrounds.ACOLYTE;
 import static nz.co.fitnet.characterGenerator.data.Classes.BARBARIAN;
+import static nz.co.fitnet.characterGenerator.data.Gear.BACKPACK;
 import static nz.co.fitnet.characterGenerator.data.Gear.BLOCK_OF_INCENSE;
-import static nz.co.fitnet.characterGenerator.data.Packs.EXPLORERS_PACK;
 import static nz.co.fitnet.characterGenerator.data.Weapons.JAVELIN;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -23,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import nz.co.fitnet.characterGenerator.api.Ability;
 import nz.co.fitnet.characterGenerator.api.Character;
 import nz.co.fitnet.characterGenerator.core.builders.CharacterBuilder.CharacterBuilderException;
 import nz.co.fitnet.characterGenerator.data.equipment.gear.holysymbol.HolySymbol;
@@ -33,6 +33,8 @@ import nz.co.fitnet.characterGenerator.data.races.MountainDwarf;
 import nz.co.fitnet.numberGenerator.core.NumberGenerator;
 
 public class CharacterBuilderTest {
+	private static final Integer[] ARRAY = STANDARD_ARRAY.toArray(new Integer[0]);
+
 	private CharacterBuilder characterBuilder;
 	private HeightAndWeightBuilder heightAndWeightBuilder;
 	private NumberGenerator numberService;
@@ -54,7 +56,7 @@ public class CharacterBuilderTest {
 
 		languageBuilder = new LanguageBuilder(numberService);
 
-		abilitiesBuilder = new AbilitiesBuilder(numberService);
+		abilitiesBuilder = new StandardAbilitiesBuilder(numberService);
 
 		proficiencyBuilder = new ProficiencyBuilder(numberService);
 
@@ -78,11 +80,7 @@ public class CharacterBuilderTest {
 		character.getWeight();
 		character.getAge();
 		character.getAbilityMods();
-		character.getAbilityScores();
-		for (final Ability ability : Ability.values()) {
-			character.getAbilityScore(ability);
-			character.getAbilityScoreModifier(ability);
-		}
+		assertThat(character.getAbilityScores().values(), containsInAnyOrder(ARRAY));
 		System.out.println(character.getMoney());
 		assertThat(character.getKnownLanguages().size(), is(equalTo(2)));
 		assertThat(character.getKnownLanguages().get(0), is(equalTo(Common)));
@@ -102,17 +100,13 @@ public class CharacterBuilderTest {
 		character.getWeight();
 		character.getAge();
 		character.getAbilityMods();
-		character.getAbilityScores();
-		for (final Ability ability : Ability.values()) {
-			character.getAbilityScore(ability);
-			character.getAbilityScoreModifier(ability);
-		}
+		assertThat(character.getAbilityScores().values(), containsInAnyOrder(ARRAY));
 		assertThat(character.getKnownLanguages(), containsInAnyOrder(Common, Dwarvish));
 		assertThat(character.getLanguages().size(), is(equalTo(0)));
 		assertThat(character.getMovementSpeed(walk), is(equalTo(25)));
 		assertThat(character.getSize(), is(equalTo(Medium)));
 		assertThat(character.getSense(Darkvision), is(equalTo(60)));
-		assertTrue(character.getEquipment().stream().anyMatch(i -> i.getItem() == EXPLORERS_PACK));
+		assertTrue(character.getEquipment().stream().anyMatch(i -> i.getItem() == BACKPACK));
 		assertTrue(character.getEquipment().stream().anyMatch(i -> i.getItem() == JAVELIN && i.getQuantity() == 4));
 		assertTrue(character.getEquipment().stream().anyMatch(i -> i.getItem() instanceof HolySymbol));
 		assertTrue(character.getEquipment().stream()
@@ -128,17 +122,13 @@ public class CharacterBuilderTest {
 		character.getWeight();
 		character.getAge();
 		character.getAbilityMods();
-		character.getAbilityScores();
-		for (final Ability ability : Ability.values()) {
-			character.getAbilityScore(ability);
-			character.getAbilityScoreModifier(ability);
-		}
+		assertThat(character.getAbilityScores().values(), containsInAnyOrder(ARRAY));
 		assertThat(character.getKnownLanguages(), containsInAnyOrder(Common, Dwarvish));
 		assertThat(character.getLanguages().size(), is(equalTo(0)));
 		assertThat(character.getMovementSpeed(walk), is(equalTo(25)));
 		assertThat(character.getSize(), is(equalTo(Medium)));
 		assertThat(character.getSense(Darkvision), is(equalTo(60)));
-		assertTrue(character.getEquipment().stream().anyMatch(i -> i.getItem() == EXPLORERS_PACK));
+		assertTrue(character.getEquipment().stream().anyMatch(i -> i.getItem() == BACKPACK));
 		assertTrue(character.getEquipment().stream().anyMatch(i -> i.getItem() == JAVELIN && i.getQuantity() == 4));
 		assertTrue(character.getEquipment().stream().anyMatch(i -> i.getItem() instanceof HolySymbol));
 		assertTrue(character.getEquipment().stream()

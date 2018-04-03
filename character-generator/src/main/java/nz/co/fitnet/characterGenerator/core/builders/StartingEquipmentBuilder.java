@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import nz.co.fitnet.characterGenerator.api.equipment.CharacterItem;
 import nz.co.fitnet.characterGenerator.api.equipment.EquipmentOption;
 import nz.co.fitnet.characterGenerator.api.equipment.Item;
+import nz.co.fitnet.characterGenerator.api.equipment.Pack;
 import nz.co.fitnet.characterGenerator.api.equipment.StartingEquipment;
 import nz.co.fitnet.numberGenerator.api.NumberService;
 
@@ -35,7 +36,9 @@ public class StartingEquipmentBuilder {
 
 	private void addItems(final Map<Item, CharacterItem> itemMap, final List<Item> items) {
 		items.forEach(item -> {
-			if (itemMap.containsKey(item)) {
+			if (item instanceof Pack) {
+				addItems(itemMap, ((Pack) item).getItems());
+			} else if (itemMap.containsKey(item)) {
 				final CharacterItem characterItem = itemMap.get(item);
 				characterItem.setQuantity(characterItem.getQuantity() + 1);
 			} else {
@@ -49,22 +52,18 @@ public class StartingEquipmentBuilder {
 		final int numberOfChoices = option.getNumberOfChoices();
 		if (numberOfChoices == 0) {
 			items.addAll(option.getItems());
-			for (final EquipmentOption o : option.getOptions()) {
-				final List<Item> itemsForOption = getItemsForOption(o);
-				items.addAll(itemsForOption);
-			}
+			final List<Item> list = option.getOptions().stream().map(o -> getItemsForOption(o)).flatMap(List::stream)
+					.collect(toList());
+			items.addAll(list);
 		} else {
 			if (!option.getItems().isEmpty()) {
 				final List<Item> list = option.getItems().stream().sorted(itemComparator).limit(numberOfChoices)
 						.collect(toList());
 				items.addAll(list);
 			} else {
-				final List<EquipmentOption> list = option.getOptions().stream().sorted(equipmentOptionComparator)
-						.limit(numberOfChoices).collect(toList());
-				list.forEach(o -> {
-					final List<Item> itemsForOption = getItemsForOption(o);
-					items.addAll(itemsForOption);
-				});
+				final List<Item> list = option.getOptions().stream().sorted(equipmentOptionComparator)
+						.limit(numberOfChoices).map(o -> getItemsForOption(o)).flatMap(List::stream).collect(toList());
+				items.addAll(list);
 			}
 		}
 		return items;
@@ -73,10 +72,8 @@ public class StartingEquipmentBuilder {
 	public List<CharacterItem> build() {
 		final List<CharacterItem> items = new ArrayList<>();
 		final Map<Item, CharacterItem> itemMap = new HashMap<>();
-		startingEquipment.stream().map(StartingEquipment::getOptions).flatMap(Collection::stream).forEach(option -> {
-			final List<Item> itemsForOption = getItemsForOption(option);
-			addItems(itemMap, itemsForOption);
-		});
+		startingEquipment.stream().map(StartingEquipment::getOptions).flatMap(Collection::stream)
+				.map(o -> getItemsForOption(o)).forEach(l -> addItems(itemMap, l));
 		items.addAll(itemMap.values());
 		return items;
 	}
