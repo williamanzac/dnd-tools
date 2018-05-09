@@ -1,5 +1,29 @@
-
-<ul class="list-group" data-bind="foreach: backgrounds">
-	<li class="list-group-item list-group-item-action"
-		data-bind="text: $parent.i18n().get(name + '.name'), click: $parent.setBackground, css: { active: $parent.backgroundSelected($data) }"></li>
-</ul>
+<div class="row">
+	<div class="col">
+		<div class="card">
+			<ul class="list-group list-group-flush" data-bind="foreach: backgrounds">
+				<li class="list-group-item list-group-item-action"
+					data-bind="text: $parent.i18n().get(name + '.name'), click: $parent.setBackground, css: { active: $parent.backgroundSelected($data) }"></li>
+			</ul>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card">
+			<div class="card-body">
+				<!-- ko if:model().background() -->
+				<p
+					data-bind="html: i18n().getForBackground(model().background().name + '.description')">
+				</p>
+				<backgroundfeaturepanel
+					params="feature: proficenciesFeature, model: model(), step: $data"></backgroundfeaturepanel>
+				<!-- ko foreach: model().background().features -->
+				<backgroundfeaturepanel
+					params="feature: $data, model: $parent.model(), step: $parent"></backgroundfeaturepanel>
+				<!-- /ko -->
+				<backgroundfeaturepanel
+					params="feature: characteristicsFeature, model: model(), step: $data"></backgroundfeaturepanel>
+				<!-- /ko -->
+			</div>
+		</div>
+	</div>
+</div>

@@ -6,11 +6,11 @@ import javax.inject.Inject;
 
 import nz.co.fitnet.numberGenerator.api.NumberService;
 
-public class RandomCompator<T> implements Comparator<T> {
+public class RandomComparator<T> implements Comparator<T> {
 	private final NumberService numberService;
 
 	@Inject
-	public RandomCompator(final NumberService numberService) {
+	public RandomComparator(final NumberService numberService) {
 		this.numberService = numberService;
 	}
 

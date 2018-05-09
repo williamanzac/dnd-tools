@@ -4,16 +4,15 @@ import java.util.HashMap;
 
 import nz.co.fitnet.characterGenerator.api.Ability;
 import nz.co.fitnet.characterGenerator.api.Language;
+import nz.co.fitnet.characterGenerator.api.Measurement;
 import nz.co.fitnet.characterGenerator.api.MovementType;
 import nz.co.fitnet.characterGenerator.api.Race;
 import nz.co.fitnet.characterGenerator.api.Size;
 import nz.co.fitnet.characterGenerator.api.traits.AbilityModifiersTrait;
 import nz.co.fitnet.characterGenerator.api.traits.AgeTrait;
-import nz.co.fitnet.characterGenerator.api.traits.HeightTrait;
 import nz.co.fitnet.characterGenerator.api.traits.KnownLanguagesTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SizeTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SpeedTrait;
-import nz.co.fitnet.characterGenerator.api.traits.WeightTrait;
 
 public abstract class Halfling extends Race {
 	public Halfling() {
@@ -23,8 +22,8 @@ public abstract class Halfling extends Race {
 		traits.add(new AgeTrait(20, 250));
 		// TODO alignment trait
 		traits.add(new SizeTrait(Size.Small));
-		traits.add(new HeightTrait(2 * 12 + 7, "2d4")); // 2'7"
-		traits.add(new WeightTrait(35, "1")); // lbs
+		height = new Measurement(2 * 12 + 7, "2d4"); // 2'7"
+		weight = new Measurement(35, "1"); // lbs
 		traits.add(new SpeedTrait(MovementType.walk, 25));
 		traits.add(new KnownLanguagesTrait(Language.Common, Language.Halfling));
 

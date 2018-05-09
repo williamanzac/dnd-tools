@@ -1,8 +1,5 @@
 package nz.co.fitnet.ui.resource;
 
-import static javax.ws.rs.core.Response.seeOther;
-import static javax.ws.rs.core.UriBuilder.fromResource;
-
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,7 +12,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import nz.co.fitnet.characterGenerator.api.Character;
 import nz.co.fitnet.ui.core.MyCharacters;
@@ -51,12 +47,5 @@ public class CharactersResource {
 	@Path("{uuid}")
 	public void delete(final @PathParam("uuid") UUID uuid) {
 		MyCharacters.delete(uuid);
-	}
-
-	@POST
-	@Path("/new")
-	public Response createBulder() {
-		final UUID uuid = MyCharacters.createNewBuilder();
-		return seeOther(fromResource(UICharacterBuilderResource.class).build(uuid)).build();
 	}
 }

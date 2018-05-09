@@ -21,9 +21,7 @@ import nz.co.fitnet.characterGenerator.api.traits.AgeTrait;
 import nz.co.fitnet.characterGenerator.api.traits.ArmourProficiencyTrait;
 import nz.co.fitnet.characterGenerator.api.traits.DamageImmunityTrait;
 import nz.co.fitnet.characterGenerator.api.traits.DamageResistanceTrait;
-import nz.co.fitnet.characterGenerator.api.traits.HeightTrait;
 import nz.co.fitnet.characterGenerator.api.traits.KnownLanguagesTrait;
-import nz.co.fitnet.characterGenerator.api.traits.MeasurementTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SenseTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SizeTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SkillProficiencyTrait;
@@ -31,26 +29,23 @@ import nz.co.fitnet.characterGenerator.api.traits.SpeedTrait;
 import nz.co.fitnet.characterGenerator.api.traits.ToolProficiencyTrait;
 import nz.co.fitnet.characterGenerator.api.traits.Trait;
 import nz.co.fitnet.characterGenerator.api.traits.WeaponProficiencyTrait;
-import nz.co.fitnet.characterGenerator.api.traits.WeightTrait;
 
 public abstract class Race {
 
 	protected List<Trait<?>> traits = new ArrayList<>();
+	protected Measurement height;
+	protected Measurement weight;
 
 	public String getName() {
 		return getClass().getSimpleName();
 	}
 
 	public Measurement getHeight() {
-		final Measurement measurement = traits.stream().filter(t -> t instanceof HeightTrait).map(t -> (HeightTrait) t)
-				.map(HeightTrait::getThing).findFirst().orElse(null);
-		return measurement;
+		return height;
 	}
 
 	public Measurement getWeight() {
-		final Measurement measurement = traits.stream().filter(t -> t instanceof WeightTrait).map(t -> (WeightTrait) t)
-				.map(MeasurementTrait::getThing).findFirst().orElse(null);
-		return measurement;
+		return weight;
 	}
 
 	public Map<Ability, Integer> getAbilityMods() {

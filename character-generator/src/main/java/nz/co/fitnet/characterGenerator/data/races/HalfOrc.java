@@ -4,16 +4,15 @@ import java.util.HashMap;
 
 import nz.co.fitnet.characterGenerator.api.Ability;
 import nz.co.fitnet.characterGenerator.api.Language;
+import nz.co.fitnet.characterGenerator.api.Measurement;
 import nz.co.fitnet.characterGenerator.api.MovementType;
 import nz.co.fitnet.characterGenerator.api.Race;
 import nz.co.fitnet.characterGenerator.api.Size;
 import nz.co.fitnet.characterGenerator.api.traits.AbilityModifiersTrait;
 import nz.co.fitnet.characterGenerator.api.traits.AgeTrait;
-import nz.co.fitnet.characterGenerator.api.traits.HeightTrait;
 import nz.co.fitnet.characterGenerator.api.traits.KnownLanguagesTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SizeTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SpeedTrait;
-import nz.co.fitnet.characterGenerator.api.traits.WeightTrait;
 import nz.co.fitnet.characterGenerator.data.traits.DarkvisionTrait;
 import nz.co.fitnet.characterGenerator.data.traits.MenacingTrait;
 
@@ -26,8 +25,8 @@ public class HalfOrc extends Race {
 		traits.add(new AgeTrait(14, 75));
 		// TODO alignment trait
 		traits.add(new SizeTrait(Size.Medium));
-		traits.add(new HeightTrait(4 * 12 + 10, "2d10")); // 4'10"
-		traits.add(new WeightTrait(140, "2d6")); // lbs
+		height = new Measurement(4 * 12 + 10, "2d10"); // 4'10"
+		weight = new Measurement(140, "2d6"); // lbs
 		traits.add(new SpeedTrait(MovementType.walk, 30));
 		traits.add(new KnownLanguagesTrait(Language.Common, Language.Orc));
 

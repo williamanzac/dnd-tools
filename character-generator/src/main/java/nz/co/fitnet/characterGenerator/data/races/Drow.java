@@ -3,16 +3,15 @@ package nz.co.fitnet.characterGenerator.data.races;
 import java.util.HashMap;
 
 import nz.co.fitnet.characterGenerator.api.Ability;
+import nz.co.fitnet.characterGenerator.api.Measurement;
 import nz.co.fitnet.characterGenerator.api.traits.AbilityModifiersTrait;
-import nz.co.fitnet.characterGenerator.api.traits.HeightTrait;
-import nz.co.fitnet.characterGenerator.api.traits.WeightTrait;
 import nz.co.fitnet.characterGenerator.data.traits.DrowWeaponTrainingTrait;
 import nz.co.fitnet.characterGenerator.data.traits.SuperiorDarkvisionTrait;
 
 public class Drow extends Elf {
 	public Drow() {
-		traits.add(new HeightTrait(4 * 12 + 5, "2d6")); // 4'5"
-		traits.add(new WeightTrait(75, "1d6")); // lbs
+		height = new Measurement(4 * 12 + 5, "2d6"); // 4'5"
+		weight = new Measurement(75, "1d6"); // lbs
 
 		final HashMap<Ability, Integer> abilityMods = new HashMap<>();
 		abilityMods.put(Ability.CHA, 1);

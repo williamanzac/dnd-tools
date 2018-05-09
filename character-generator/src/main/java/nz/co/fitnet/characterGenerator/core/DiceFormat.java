@@ -26,7 +26,7 @@ public class DiceFormat {
 		int die = 0;
 		if (matcher.matches()) {
 			if (StringUtils.isNotBlank(matcher.group(4))) {
-				modifier = Integer.valueOf(matcher.group(1));
+				modifier = Integer.valueOf(matcher.group(4));
 			} else {
 				times = Integer.valueOf(matcher.group(1));
 				die = Integer.valueOf(matcher.group(2));

@@ -5,16 +5,15 @@ import java.util.HashMap;
 import nz.co.fitnet.characterGenerator.api.Ability;
 import nz.co.fitnet.characterGenerator.api.DamageType;
 import nz.co.fitnet.characterGenerator.api.Language;
+import nz.co.fitnet.characterGenerator.api.Measurement;
 import nz.co.fitnet.characterGenerator.api.MovementType;
 import nz.co.fitnet.characterGenerator.api.Race;
 import nz.co.fitnet.characterGenerator.api.Size;
 import nz.co.fitnet.characterGenerator.api.traits.AbilityModifiersTrait;
 import nz.co.fitnet.characterGenerator.api.traits.AgeTrait;
-import nz.co.fitnet.characterGenerator.api.traits.HeightTrait;
 import nz.co.fitnet.characterGenerator.api.traits.KnownLanguagesTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SizeTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SpeedTrait;
-import nz.co.fitnet.characterGenerator.api.traits.WeightTrait;
 import nz.co.fitnet.characterGenerator.data.traits.BreathWeaponTrait;
 import nz.co.fitnet.characterGenerator.data.traits.DragonbornDamageResistanceTrait;
 
@@ -27,8 +26,8 @@ public class Dragonborn extends Race {
 		traits.add(new AgeTrait(15, 80));
 		// TODO alignment trait
 		traits.add(new SizeTrait(Size.Medium));
-		traits.add(new HeightTrait(5 * 12 + 6, "2d8")); // 5'6"
-		traits.add(new WeightTrait(175, "2d6")); // lbs
+		height = new Measurement(5 * 12 + 6, "2d8"); // 5'6"
+		weight = new Measurement(175, "2d6"); // lbs
 		traits.add(new SpeedTrait(MovementType.walk, 30));
 		traits.add(new KnownLanguagesTrait(Language.Common, Language.Draconic));
 

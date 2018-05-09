@@ -17,38 +17,15 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.lang3.StringUtils;
 
-import nz.co.fitnet.ui.core.BackgroundResourceBundle;
-import nz.co.fitnet.ui.core.ClassResourceBundle;
-import nz.co.fitnet.ui.core.RaceResourceBundle;
-
 @Path("/i18n")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class I18nResource {
-
-	@GET
-	@Path("/race/{raceName}")
-	public Map<String, String> forRace(final @PathParam("raceName") String raceName) {
-		return RaceResourceBundle.forRace(raceName).entries();
-	}
-
-	@GET
-	@Path("/class/{className}")
-	public Map<String, String> forClass(final @PathParam("className") String className) {
-		return ClassResourceBundle.forCharacterClass(className).entries();
-	}
-
-	@GET
-	@Path("/background/{backgroundName}")
-	public Map<String, String> forBackground(final @PathParam("backgroundName") String backgroundName) {
-		return BackgroundResourceBundle.forBackground(backgroundName).entries();
-	}
 
 	@GET
 	public Map<String, String> allForLanguage(final @HeaderParam("accept-language") String lang) {

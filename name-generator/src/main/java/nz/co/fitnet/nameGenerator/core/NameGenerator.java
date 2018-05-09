@@ -29,14 +29,14 @@ import nz.co.fitnet.numberGenerator.core.NumberGenerator;
 
 @Service
 public class NameGenerator implements NameService {
-	private final RandomCompator<String> stringCompator;
-	private final RandomCompator<NameDefinition> definitionCompator;
+	private final RandomComparator<String> stringCompator;
+	private final RandomComparator<NameDefinition> definitionCompator;
 	private static final Pattern parameterPattern = compile("\\{(.*)\\}");
 
 	@Inject
 	public NameGenerator(final NumberGenerator numberService) {
-		stringCompator = new RandomCompator<>(numberService);
-		definitionCompator = new RandomCompator<>(numberService);
+		stringCompator = new RandomComparator<>(numberService);
+		definitionCompator = new RandomComparator<>(numberService);
 	}
 
 	@Override

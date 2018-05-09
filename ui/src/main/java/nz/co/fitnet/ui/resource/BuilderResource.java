@@ -21,8 +21,8 @@ import nz.co.fitnet.characterGenerator.core.builders.StartingWealthBuilder;
 import nz.co.fitnet.nameGenerator.api.Gender;
 import nz.co.fitnet.nameGenerator.api.Type;
 import nz.co.fitnet.nameGenerator.core.NameGenerator;
-import nz.co.fitnet.nameGenerator.core.RandomCompator;
 import nz.co.fitnet.numberGenerator.core.NumberGenerator;
+import nz.co.fitnet.ui.core.RandomComparator;
 
 @Path("/builder")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -62,7 +62,7 @@ public class BuilderResource {
 	@POST
 	@Path("/name/{race}")
 	public String generateName(final @PathParam("race") String race) {
-		final RandomCompator<Gender> randomGenderCompator = new RandomCompator<>(numberService);
+		final RandomComparator<Gender> randomGenderCompator = new RandomComparator<>(numberService);
 		final Gender gender = Stream.of(Gender.values()).sorted(randomGenderCompator).limit(1).findFirst().get();
 		return generateName(race, gender);
 	}

@@ -37,22 +37,22 @@ require([ 'jquery', 'bootstrap', 'knockout', '../model/CharacterBuilderModel', '
 		var self = this;
 
 		var step1 = new ChooseRaceStep();
-		var step2 = new RaceTraitsStep();
+		//var step2 = new RaceTraitsStep();
 		var step3 = new ChooseClassStep();
-		var step4 = new ClassFeaturesStep();
+		//var step4 = new ClassFeaturesStep();
 		var step5 = new AbilityScoreStep();
 		var step6 = new ChooseBackgroundStep();
-		var step7 = new BackgroundFeaturesStep();
+		//var step7 = new BackgroundFeaturesStep();
 		var step8 = new CharacterDetailsStep();
 		var step9 = new EquipmentStep();
 		self.model = new CharacterBuilderModel();
 		self.model.add(step1);
-		self.model.add(step2);
+		//self.model.add(step2);
 		self.model.add(step3);
-		self.model.add(step4);
+		//self.model.add(step4);
 		self.model.add(step5);
 		self.model.add(step6);
-		self.model.add(step7);
+		//self.model.add(step7);
 		self.model.add(step8);
 		self.model.add(step9);
 	}
