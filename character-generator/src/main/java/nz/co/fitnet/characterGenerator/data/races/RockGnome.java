@@ -1,15 +1,10 @@
 package nz.co.fitnet.characterGenerator.data.races;
 
-import java.util.HashMap;
-
 import nz.co.fitnet.characterGenerator.api.Ability;
-import nz.co.fitnet.characterGenerator.api.traits.AbilityModifiersTrait;
 
 public class RockGnome extends Gnome {
 	public RockGnome() {
-		final HashMap<Ability, Integer> abilityMods = new HashMap<>();
-		abilityMods.put(Ability.CON, 1);
-		traits.add(new AbilityModifiersTrait(abilityMods));
+		mods.addModifier(Ability.CON, 1);
 
 		// TODO Artificer’s Lore. Whenever you make an Intelligence (History) check related to magic items, alchemical
 		// objects, or technological devices, you can add twice your proficiency bonus, instead of any proficiency bonus

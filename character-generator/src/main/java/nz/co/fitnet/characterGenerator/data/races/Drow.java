@@ -1,10 +1,7 @@
 package nz.co.fitnet.characterGenerator.data.races;
 
-import java.util.HashMap;
-
 import nz.co.fitnet.characterGenerator.api.Ability;
 import nz.co.fitnet.characterGenerator.api.Measurement;
-import nz.co.fitnet.characterGenerator.api.traits.AbilityModifiersTrait;
 import nz.co.fitnet.characterGenerator.data.traits.DrowWeaponTrainingTrait;
 import nz.co.fitnet.characterGenerator.data.traits.SuperiorDarkvisionTrait;
 
@@ -13,9 +10,7 @@ public class Drow extends Elf {
 		height = new Measurement(4 * 12 + 5, "2d6"); // 4'5"
 		weight = new Measurement(75, "1d6"); // lbs
 
-		final HashMap<Ability, Integer> abilityMods = new HashMap<>();
-		abilityMods.put(Ability.CHA, 1);
-		traits.add(new AbilityModifiersTrait(abilityMods));
+		mods.addModifier(Ability.CHA, 1);
 		traits.add(new SuperiorDarkvisionTrait());
 		// TODO Sunlight Sensitivity. You have disadvantage on attack rolls and on Wisdom (Perception) checks that rely
 		// on sight when you, the target o f your attack, or whatever you are trying to perceive is in direct sunlight.

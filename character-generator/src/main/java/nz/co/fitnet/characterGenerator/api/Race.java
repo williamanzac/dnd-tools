@@ -35,6 +35,11 @@ public abstract class Race {
 	protected List<Trait<?>> traits = new ArrayList<>();
 	protected Measurement height;
 	protected Measurement weight;
+	protected AbilityModifiers mods = new AbilityModifiers(0);
+
+	public Race() {
+		traits.add(new AbilityModifiersTrait(mods));
+	}
 
 	public String getName() {
 		return getClass().getSimpleName();
@@ -49,17 +54,12 @@ public abstract class Race {
 	}
 
 	public Map<Ability, Integer> getAbilityMods() {
-		final Map<Ability, Integer> abilityMods = traits.stream().filter(t -> t instanceof AbilityModifiersTrait)
-				.map(t -> (AbilityModifiersTrait) t).map(Trait::getThing).map(AbilityModifiers::getAbilityModifiers)
-				.map(Map::entrySet).flatMap(Collection::stream)
-				.collect(toMap(Map.Entry::getKey, Map.Entry::getValue, Integer::max));
+		final Map<Ability, Integer> abilityMods = mods.getAbilityModifiers();
 		return abilityMods;
 	}
 
 	public int getAdditionalMods() {
-		final int additionalMods = traits.stream().filter(t -> t instanceof AbilityModifiersTrait)
-				.map(t -> (AbilityModifiersTrait) t).map(Trait::getThing).map(AbilityModifiers::getAdditionalModifiers)
-				.reduce((t, n) -> t + n).get().intValue();
+		final int additionalMods = mods.getAdditionalModifiers();
 		return additionalMods;
 	}
 

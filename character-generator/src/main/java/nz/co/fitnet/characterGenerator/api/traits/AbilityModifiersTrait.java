@@ -13,6 +13,10 @@ public class AbilityModifiersTrait extends Trait<AbilityModifiers> {
 	}
 
 	public AbilityModifiersTrait(final int additionalModifiers, final Map<Ability, Integer> abilityModifiers) {
-		super(AbilityScoreIncrease, new AbilityModifiers(additionalModifiers, abilityModifiers));
+		this(new AbilityModifiers(additionalModifiers, abilityModifiers));
+	}
+
+	public AbilityModifiersTrait(final AbilityModifiers abilityModifiers) {
+		super(AbilityScoreIncrease, abilityModifiers);
 	}
 }

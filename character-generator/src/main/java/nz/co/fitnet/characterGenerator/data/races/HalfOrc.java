@@ -1,14 +1,11 @@
 package nz.co.fitnet.characterGenerator.data.races;
 
-import java.util.HashMap;
-
 import nz.co.fitnet.characterGenerator.api.Ability;
 import nz.co.fitnet.characterGenerator.api.Language;
 import nz.co.fitnet.characterGenerator.api.Measurement;
 import nz.co.fitnet.characterGenerator.api.MovementType;
 import nz.co.fitnet.characterGenerator.api.Race;
 import nz.co.fitnet.characterGenerator.api.Size;
-import nz.co.fitnet.characterGenerator.api.traits.AbilityModifiersTrait;
 import nz.co.fitnet.characterGenerator.api.traits.AgeTrait;
 import nz.co.fitnet.characterGenerator.api.traits.AlignmentTrait;
 import nz.co.fitnet.characterGenerator.api.traits.KnownLanguagesTrait;
@@ -19,10 +16,8 @@ import nz.co.fitnet.characterGenerator.data.traits.MenacingTrait;
 
 public class HalfOrc extends Race {
 	public HalfOrc() {
-		final HashMap<Ability, Integer> abilityMods = new HashMap<>();
-		abilityMods.put(Ability.STR, 2);
-		abilityMods.put(Ability.CON, 1);
-		traits.add(new AbilityModifiersTrait(abilityMods));
+		mods.addModifier(Ability.STR, 2);
+		mods.addModifier(Ability.CON, 1);
 		traits.add(new AgeTrait(14, 75));
 		traits.add(new AlignmentTrait());
 		traits.add(new SizeTrait(Size.Medium));

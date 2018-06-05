@@ -1,15 +1,10 @@
 package nz.co.fitnet.characterGenerator.data.races;
 
-import java.util.HashMap;
-
 import nz.co.fitnet.characterGenerator.api.Ability;
-import nz.co.fitnet.characterGenerator.api.traits.AbilityModifiersTrait;
 
 public class ForestGnome extends Gnome {
 	public ForestGnome() {
-		final HashMap<Ability, Integer> abilityMods = new HashMap<>();
-		abilityMods.put(Ability.DEX, 1);
-		traits.add(new AbilityModifiersTrait(abilityMods));
+		mods.addModifier(Ability.DEX, 1);
 
 		// TODO Natural Illusionist. You know the minor illusion cantrip. Intelligence is your spellcasting ability for
 		// it.
