@@ -1,9 +1,5 @@
 package nz.co.fitnet.characterGenerator.data.races;
 
-import static nz.co.fitnet.characterGenerator.api.Alignment.CHAOTIC_EVIL;
-import static nz.co.fitnet.characterGenerator.api.Alignment.CHAOTIC_GOOD;
-import static nz.co.fitnet.characterGenerator.api.Alignment.CHAOTIC_NEUTRAL;
-
 import java.util.HashMap;
 
 import nz.co.fitnet.characterGenerator.api.Ability;
@@ -28,7 +24,7 @@ public class HalfElf extends Race {
 		abilityMods.put(Ability.CHA, 2);
 		traits.add(new AbilityModifiersTrait(2, abilityMods));
 		traits.add(new AgeTrait(20, 180));
-		traits.add(new AlignmentTrait(CHAOTIC_GOOD, CHAOTIC_NEUTRAL, CHAOTIC_EVIL));
+		traits.add(new AlignmentTrait());
 		traits.add(new SizeTrait(Size.Medium));
 		height = new Measurement(4 * 12 + 9, "2d8"); // 4'9"
 		weight = new Measurement(110, "2d4"); // lbs

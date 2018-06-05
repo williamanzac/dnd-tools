@@ -9,6 +9,7 @@ import nz.co.fitnet.characterGenerator.api.Race;
 import nz.co.fitnet.characterGenerator.api.Size;
 import nz.co.fitnet.characterGenerator.api.traits.AbilityModifiersTrait;
 import nz.co.fitnet.characterGenerator.api.traits.AgeTrait;
+import nz.co.fitnet.characterGenerator.api.traits.AlignmentTrait;
 import nz.co.fitnet.characterGenerator.api.traits.KnownLanguagesTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SizeTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SpeedTrait;
@@ -21,7 +22,7 @@ public abstract class Elf extends Race {
 		abilityMods.put(Ability.DEX, 2);
 		traits.add(new AbilityModifiersTrait(abilityMods));
 		traits.add(new AgeTrait(100, 750));
-		// TODO alignment trait
+		traits.add(new AlignmentTrait());
 		traits.add(new SizeTrait(Size.Medium));
 		traits.add(new SpeedTrait(MovementType.walk, 30));
 		traits.add(new KnownLanguagesTrait(Language.Common, Language.Elvish));

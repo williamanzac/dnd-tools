@@ -7,6 +7,10 @@ import nz.co.fitnet.characterGenerator.api.AlignmentPreferences;
 
 public class AlignmentTrait extends Trait<AlignmentPreferences> {
 
+	public AlignmentTrait() {
+		super(Alignment, new AlignmentPreferences());
+	}
+
 	public AlignmentTrait(final Alignment... alignments) {
 		super(Alignment, new AlignmentPreferences(alignments));
 	}

@@ -8,6 +8,9 @@ import java.util.List;
 public class AlignmentPreferences {
 	private final List<Alignment> alignments = new ArrayList<>();
 
+	public AlignmentPreferences() {
+	}
+
 	public AlignmentPreferences(final Alignment... alignments) {
 		this.alignments.addAll(asList(alignments));
 	}

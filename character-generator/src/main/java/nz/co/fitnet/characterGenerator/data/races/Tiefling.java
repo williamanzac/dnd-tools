@@ -10,6 +10,7 @@ import nz.co.fitnet.characterGenerator.api.Race;
 import nz.co.fitnet.characterGenerator.api.Size;
 import nz.co.fitnet.characterGenerator.api.traits.AbilityModifiersTrait;
 import nz.co.fitnet.characterGenerator.api.traits.AgeTrait;
+import nz.co.fitnet.characterGenerator.api.traits.AlignmentTrait;
 import nz.co.fitnet.characterGenerator.api.traits.KnownLanguagesTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SizeTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SpeedTrait;
@@ -23,7 +24,7 @@ public class Tiefling extends Race {
 		abilityMods.put(Ability.CHA, 2);
 		traits.add(new AbilityModifiersTrait(abilityMods));
 		traits.add(new AgeTrait(18, 110));
-		// TODO alignment trait
+		traits.add(new AlignmentTrait());
 		traits.add(new SizeTrait(Size.Medium));
 		height = new Measurement(4 * 12 + 9, "2d8"); // 4'9"
 		weight = new Measurement(110, "2d4"); // lbs
