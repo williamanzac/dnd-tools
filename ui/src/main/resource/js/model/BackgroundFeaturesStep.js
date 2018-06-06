@@ -12,7 +12,7 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function(
 		self.name = "Characteristics";
 	};
 	
-	function BackgroundFeaturesStep() {
+	function BackgroundFeaturesStep(i18n) {
 		WizardStep.call(this);
 		var self = this;
 		
@@ -21,16 +21,12 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function(
 		self.view("BackgroundFeaturesStep");
 		self.complete(false);
 		self.featurePanels = ko.observableArray();
-		self.i18n = ko.observable();
+		self.i18n = ko.observable(i18n);
 		self.proficenciesFeature = ko.observable(new ProficenciesFeature());
 		self.characteristicsFeature = ko.observable(new CharacteristicsFeature());
 
 		self.init = function(model) {
 			self.model(ko.unwrap(model));
-		};
-
-		self.prepare = function() {
-			self.i18n(new I18n(self.model));
 		};
 
 		self.refreshState = function() {

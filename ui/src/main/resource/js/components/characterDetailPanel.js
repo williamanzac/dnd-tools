@@ -6,7 +6,7 @@ define([ 'knockout', 'text!../components/characterDetailPanel.html', '../lib/I18
 		self.expanded = ko.observable(false);
 		self.name = ko.observable(ko.unwrap(params.name));
 		self.model = ko.observable(ko.unwrap(params.model));
-		self.i18n = ko.observable(new I18n(self.model));
+		self.i18n = ko.observable(ko.unwrap(params.i18n));
 		
 		self.toggleExpanded = function() {
 			self.expanded(!self.expanded());

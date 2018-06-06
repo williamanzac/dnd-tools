@@ -12,7 +12,7 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function(
 		self.name = "HitPoints";
 	}
 	
-	function ChooseClassStep() {
+	function ChooseClassStep(i18n) {
 		WizardStep.call(this);
 		var self = this;
 		
@@ -20,7 +20,7 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function(
 		self.name("Choose Class");
 		self.view("ChooseClassStep");
 		self.complete(false);
-		self.i18n = ko.observable(new I18n(self.model));
+		self.i18n = ko.observable(i18n);
 		self.featurePanels = ko.observableArray();
 		self.classLevel = ko.observable();
 		self.hitPointsFeature = ko.observable(new HitPointsFeature());

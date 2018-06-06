@@ -1,2 +1,16 @@
-<!-- ko template: {name: trait().name + 'Trait', data: $data} -->
-<!-- /ko -->
+<div class="card mb-3">
+	<div class="card-header" data-bind="click: toggleExpanded">
+		<div class="d-flex">
+			<div class="mr-auto p-2" data-bind="text: i18n().getForRace(trait().name + '.name')"></div>
+			<button class="p-2 btn btn-link" data-bind="visible: !expanded()">
+				<i class="fa fa-angle-down"></i>
+	        </button>
+			<button class="p-2 btn btn-link" data-bind="visible: expanded">
+				<i class="fa fa-angle-up"></i>
+	        </button>
+		</div>
+	</div>
+	<div class="card-body collapse" data-bind="css: { show: expanded}">
+		<p class="card-text" data-bind="text: i18n().getForRace(trait().name + '.description')"></p>
+	</div>
+</div>

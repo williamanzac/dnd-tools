@@ -12,7 +12,7 @@ define([ 'jquery', 'knockout', '../model/WizardStep' ], function($, ko, WizardSt
 		self.name = "HitPoints";
 	}
 	
-	function ClassFeaturesStep() {
+	function ClassFeaturesStep(i18n) {
 		WizardStep.call(this);
 		var self = this;
 		
@@ -24,6 +24,7 @@ define([ 'jquery', 'knockout', '../model/WizardStep' ], function($, ko, WizardSt
 		self.classLevel = ko.observable();
 		self.hitPointsFeature = ko.observable(new HitPointsFeature());
 		self.proficenciesFeature = ko.observable(new ProficenciesFeature());
+		self.i18n = ko.observable(i18n);
 
 		self.init = function(model) {
 			self.model(ko.unwrap(model));

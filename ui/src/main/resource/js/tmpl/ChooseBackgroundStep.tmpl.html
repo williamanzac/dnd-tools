@@ -15,13 +15,13 @@
 					data-bind="html: i18n().getForBackground(model().background().name + '.description')">
 				</p>
 				<backgroundfeaturepanel
-					params="feature: proficenciesFeature, model: model(), step: $data"></backgroundfeaturepanel>
+					params="feature: proficenciesFeature, model: model(), step: $data, i18n: i18n()"></backgroundfeaturepanel>
 				<!-- ko foreach: model().background().features -->
 				<backgroundfeaturepanel
-					params="feature: $data, model: $parent.model(), step: $parent"></backgroundfeaturepanel>
+					params="feature: $data, model: $parent.model(), step: $parent, i18n: i18n()"></backgroundfeaturepanel>
 				<!-- /ko -->
 				<backgroundfeaturepanel
-					params="feature: characteristicsFeature, model: model(), step: $data"></backgroundfeaturepanel>
+					params="feature: characteristicsFeature, model: model(), step: $data, i18n: i18n()"></backgroundfeaturepanel>
 				<!-- /ko -->
 			</div>
 		</div>

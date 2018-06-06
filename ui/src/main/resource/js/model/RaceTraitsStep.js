@@ -1,5 +1,5 @@
 define([ 'jquery', 'knockout', '../model/WizardStep' ], function($, ko, WizardStep) {
-	function RaceTraitsStep() {
+	function RaceTraitsStep(i18n) {
 		WizardStep.call(this);
 		var self = this;
 		
@@ -8,6 +8,7 @@ define([ 'jquery', 'knockout', '../model/WizardStep' ], function($, ko, WizardSt
 		self.view("RaceTraitsStep");
 		self.complete(false);
 		self.traitPanels = ko.observableArray();
+		self.i18n = ko.observable(i18n);
 
 		self.init = function(model) {
 			self.model(ko.unwrap(model));

@@ -1,4 +1,4 @@
-define([ 'knockout', 'text!../components/wizard.html', '../model/WizardModel', 'knockout-amd-helpers' ], function(ko, html, WizardModel) {
+define([ 'knockout', 'text!../components/wizard.html', '../model/WizardModel', '../lib/I18n', 'knockout-amd-helpers' ], function(ko, html, WizardModel, I18n) {
 	var EXIT_ON_CLOSE = 1;
 	var EXIT_ON_FINISH = 2;
 
@@ -55,6 +55,8 @@ define([ 'knockout', 'text!../components/wizard.html', '../model/WizardModel', '
 			self.model = ko.observable(ko.unwrap(params.model));
 		}
 		self.defaultExitMode = EXIT_ON_FINISH;
+		
+		self.i18n = ko.observable(new I18n(self.model));
 
 		// private final JComponent titleComponent;
 		// private final ButtonBar buttonBar;

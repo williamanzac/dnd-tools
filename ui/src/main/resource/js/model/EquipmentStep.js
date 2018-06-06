@@ -40,7 +40,7 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n', '../model/C
 		return false;
 	};
 	
-	function EquipmentStep() {
+	function EquipmentStep(i18n) {
 		WizardStep.call(this);
 		var self = this;
 
@@ -48,7 +48,7 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n', '../model/C
 		self.name("Equipment");
 		self.view("EquipmentStep");
 		self.complete(false);
-		self.i18n = ko.observable();
+		self.i18n = ko.observable(i18n);
 		self.startingWealth = ko.observable();
 		self.gear = ko.observableArray();
 		self.armour = ko.observableArray();

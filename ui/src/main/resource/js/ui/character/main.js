@@ -11,9 +11,9 @@ requirejs.config({
 require([ 'jquery', 'bootstrap', 'knockout', '../model/CharacterBuilderModel', '../model/ChooseRaceStep',
         '../model/RaceTraitsStep', '../model/ChooseClassStep', '../model/ClassFeaturesStep',
         '../model/AbilityScoreStep', '../model/ChooseBackgroundStep', '../model/BackgroundFeaturesStep',
-        '../model/CharacterDetailsStep','../model/EquipmentStep', 'domReady!' ], function($, bootstrap, ko, CharacterBuilderModel,
+        '../model/CharacterDetailsStep','../model/EquipmentStep', '../lib/I18n', 'domReady!' ], function($, bootstrap, ko, CharacterBuilderModel,
         ChooseRaceStep, RaceTraitsStep, ChooseClassStep, ClassFeaturesStep, AbilityScoreStep, ChooseBackgroundStep,
-        BackgroundFeaturesStep, CharacterDetailsStep, EquipmentStep) {
+        BackgroundFeaturesStep, CharacterDetailsStep, EquipmentStep, I18n) {
 	ko.components.register('breadcrumbs', {
 		require : '../components/breadcrumbs'
 	});
@@ -36,16 +36,19 @@ require([ 'jquery', 'bootstrap', 'knockout', '../model/CharacterBuilderModel', '
 	function Model() {
 		var self = this;
 
-		var step1 = new ChooseRaceStep();
-		//var step2 = new RaceTraitsStep();
-		var step3 = new ChooseClassStep();
-		//var step4 = new ClassFeaturesStep();
-		var step5 = new AbilityScoreStep();
-		var step6 = new ChooseBackgroundStep();
-		//var step7 = new BackgroundFeaturesStep();
-		var step8 = new CharacterDetailsStep();
-		var step9 = new EquipmentStep();
 		self.model = new CharacterBuilderModel();
+		self.i18n = new I18n(self.model);
+
+		var step1 = new ChooseRaceStep(self.i18n);
+		//var step2 = new RaceTraitsStep(self.i18n);
+		var step3 = new ChooseClassStep(self.i18n);
+		//var step4 = new ClassFeaturesStep(self.i18n);
+		var step5 = new AbilityScoreStep(self.i18n);
+		var step6 = new ChooseBackgroundStep(self.i18n);
+		//var step7 = new BackgroundFeaturesStep(self.i18n);
+		var step8 = new CharacterDetailsStep(self.i18n);
+		var step9 = new EquipmentStep(self.i18n);
+
 		self.model.add(step1);
 		//self.model.add(step2);
 		self.model.add(step3);
@@ -55,6 +58,7 @@ require([ 'jquery', 'bootstrap', 'knockout', '../model/CharacterBuilderModel', '
 		//self.model.add(step7);
 		self.model.add(step8);
 		self.model.add(step9);
+		
 	}
 	ko.applyBindings(new Model());
 });

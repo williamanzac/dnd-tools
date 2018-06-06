@@ -224,19 +224,19 @@
 			<div class="tab-pane active table-responsive">
 				<ul class="list-group list-group-flush">
 					<!-- ko if: addItemModeSelected("Gear") -->
-					<!-- ko template: {name:'Item', foreach: gear} -->
+					<!-- ko template: {name:'Item', foreach: gear, i18n: $parent.i18n()} -->
 					<!-- /ko -->
 					<!-- /ko -->
 					<!-- ko if: addItemModeSelected("Armour") -->
-					<!-- ko template: {name:'Item', foreach: armour} -->
+					<!-- ko template: {name:'Item', foreach: armour, i18n: $parent.i18n()} -->
 					<!-- /ko -->
 					<!-- /ko -->
 					<!-- ko if: addItemModeSelected("Weapons") -->
-					<!-- ko template: {name:'Item', foreach: weapons} -->
+					<!-- ko template: {name:'Item', foreach: weapons, i18n: $parent.i18n()} -->
 					<!-- /ko -->
 					<!-- /ko -->
 					<!-- ko if: addItemModeSelected("Packs") -->
-					<!-- ko template: {name:'Item', foreach: packs} -->
+					<!-- ko template: {name:'Item', foreach: packs, i18n: $parent.i18n()} -->
 					<!-- /ko -->
 					<!-- /ko -->
 				</ul>

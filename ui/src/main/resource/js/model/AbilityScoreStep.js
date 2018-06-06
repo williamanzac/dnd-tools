@@ -68,14 +68,14 @@ define([ 'jquery', 'knockout', '../model/WizardStep', '../lib/I18n' ], function(
 	PointBuyMode.prototype = Object.create(Mode.prototype);
 	PointBuyMode.prototype.constructor = PointBuyMode;
 
-	function AbilityScorceStep() {
+	function AbilityScorceStep(i18n) {
 		WizardStep.call(this);
 		var self = this;
 		
 		self.abilities = ko.observableArray();
 		self.modes = ko.observableArray([new StandardMode(), new DiceRollMode(), new PointBuyMode(), new Mode("Manual")]);
 		self.currentMode = ko.observable();
-		self.i18n = ko.observable(new I18n(self.model));
+		self.i18n = ko.observable(i18n);
 		
 		self.model = ko.observable();
 		self.name("Ability Scores");

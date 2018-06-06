@@ -6,7 +6,7 @@ define([ 'knockout', 'text!../components/backgroundFeaturePanel.html', '../lib/I
 		self.expanded = ko.observable(false);
 		self.feature = ko.observable(ko.unwrap(params.feature));
 		self.model = ko.observable(ko.unwrap(params.model));
-		self.i18n = ko.observable(new I18n(self.model));
+		self.i18n = ko.observable(ko.unwrap(params.i18n));
 		
 		self.languages = ko.observableArray();
 
