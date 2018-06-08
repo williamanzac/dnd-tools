@@ -8,11 +8,11 @@ import nz.co.fitnet.characterGenerator.api.Race;
 import nz.co.fitnet.characterGenerator.api.Size;
 import nz.co.fitnet.characterGenerator.api.traits.AgeTrait;
 import nz.co.fitnet.characterGenerator.api.traits.AlignmentTrait;
-import nz.co.fitnet.characterGenerator.api.traits.FeyAncestryTrait;
 import nz.co.fitnet.characterGenerator.api.traits.KnownLanguagesTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SizeTrait;
 import nz.co.fitnet.characterGenerator.api.traits.SpeedTrait;
 import nz.co.fitnet.characterGenerator.data.traits.DarkvisionTrait;
+import nz.co.fitnet.characterGenerator.data.traits.FeyAncestryTrait;
 import nz.co.fitnet.characterGenerator.data.traits.SkillVersatilityTrait;
 
 public class HalfElf extends Race {

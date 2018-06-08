@@ -50,6 +50,12 @@ define([ 'jquery', 'knockout' ], function($, ko,
 				if (value !== undefined && value !== null && !value.startsWith("!")) {
 					return value;
 				}
+				
+				tempKey = self.model().race().parentName + '.' + key;
+				value = self.get(tempKey);
+				if (value !== undefined && value !== null && !value.startsWith("!")) {
+					return value;
+				}
 			}
 			return self.get(key);
 		};
@@ -91,6 +97,12 @@ define([ 'jquery', 'knockout' ], function($, ko,
 			if (self.model().race() !== undefined) {
 				var tempKey = self.model().race().name + '.' + key;
 				var value = self.getFormatted(tempKey);
+				if (value !== undefined && value !== null) {
+					return value;
+				}
+
+				tempKey = self.model().race().name + '.' + key;
+				value = self.getFormatted(tempKey);
 				if (value !== undefined && value !== null) {
 					return value;
 				}

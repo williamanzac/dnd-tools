@@ -45,6 +45,14 @@ public abstract class Race {
 		return getClass().getSimpleName();
 	}
 
+	public String getParentName() {
+		final Class<?> superclass = getClass().getSuperclass();
+		if (Race.class.equals(superclass)) {
+			return null;
+		}
+		return superclass.getSimpleName();
+	}
+
 	public Measurement getHeight() {
 		return height;
 	}

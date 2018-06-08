@@ -15,11 +15,13 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import nz.co.fitnet.characterGenerator.api.spells.Spell;
 import nz.co.fitnet.characterGenerator.data.spells.AcidSplash;
+import nz.co.fitnet.characterGenerator.data.spells.Sleep;
 
 public class Spells {
 	public static final AcidSplash ACID_SPLASH = new AcidSplash();
+	public static final Sleep SLEEP = new Sleep();
 
-	public static final List<Spell> spellList = asList(ACID_SPLASH);
+	public static final List<Spell> spellList = asList(ACID_SPLASH, SLEEP);
 	public static final Map<Integer, List<Spell>> spellsByLevel = spellList.stream()
 			.collect(groupingBy(Spell::getLevel));
 	public static final Map<String, List<Spell>> spellsByClass = spellList.stream().map(s -> {
